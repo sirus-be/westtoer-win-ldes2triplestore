@@ -1,0 +1,18 @@
+orchestrator:
+  pipelines:
+    - name: touristattractions
+      description: "This pipeline will take the latest version products from Westtoer, and send to a LDES server"
+      input:
+        name: be.vlaanderen.informatievlaanderen.ldes.ldi.client.LdioLdesClient
+        config:
+          url: https://ca-westtoer-ldes.whitepebble-5c7057f6.westeurope.azurecontainerapps.io/touristattractions/latestView
+          sourceFormat: text/turtle
+          retries:
+            enabled: true
+      outputs:
+        - name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
+        - name: be.vlaanderen.informatievlaanderen.ldes.ldi.RepositoryMaterialiser
+          config:
+            sparql-host: http://rdf4j-server:8080/rdf4j-server
+            repository-id: jena
+            named-graph: http://example.org/westtoer

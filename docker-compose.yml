@@ -1,0 +1,76 @@
+services:
+  ldio-workbench:
+    container_name: westtoer_ldes2triplestore_ldio-workbench
+    image: ghcr.io/informatievlaanderen/ldi-orchestrator:20230831073618
+    ports:
+      - 8081:8080
+    volumes:
+      - ./ldio-ldes2triplestore.yml:/ldio/application.yml:ro
+    networks:
+      - ldes
+    depends_on:
+      - curl-create-rdf4j-repository
+  fuseki:
+    image:  secoresearch/fuseki
+    container_name: westtoer_ldes2triplestore_fuseki
+    ports:
+      # HTTP
+      - 3030:3030
+    networks:
+      - ldes
+    environment:
+      - ADMIN_PASSWORD=admin
+      - ENABLE_DATA_WRITE=true
+      - ENABLE_UPDATE=true 
+      - ENABLE_UPLOAD=true
+      - QUERY_TIMEOUT=30000
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:3030 || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  rdf4j-server:
+    image: eclipse/rdf4j-workbench:latest
+    container_name: westtoer_ldes2triplestore_rdf4j
+    environment:
+      - "JAVA_OPTS=-Xms1g -Xmx4g"
+    ports:
+      - 8080:8080
+    networks:
+      - ldes
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8080/rdf4j-server/repositories || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  curl-create-rdf4j-repository:
+    image: alpine/curl
+    container_name: curl_create_rdf4j_repository
+    restart: no
+    depends_on:
+      rdf4j-server:
+        condition: "service_healthy"
+      fuseki:
+        condition: "service_healthy"
+    command: |
+      curl -X PUT 'http://rdf4j-server:8080/rdf4j-server/repositories/jena'
+      --header 'Content-Type: text/turtle'
+      --data-raw '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+      @prefix rep: <http://www.openrdf.org/config/repository#>.
+      @prefix sr: <http://www.openrdf.org/config/repository/sail#>.
+      @prefix sparql: <http://www.openrdf.org/config/sparql#>.
+      @prefix config: <tag:rdf4j.org,2023:config/>.
+
+      [] a rep:Repository ;
+        rep:repositoryID "jena" ;
+        rdfs:label "SPARQL endpoint Jena" ;
+        rep:repositoryImpl [
+            rep:repositoryType "openrdf:SPARQLRepository" ;
+            config:sparql.queryEndpoint <http://fuseki:3030/ds/sparql> ;
+          config:sparql.updateEndpoint <http://fuseki:3030/ds/update> 
+        ].'
+    networks:
+      - ldes
+networks:
+  ldes:
+    driver: bridge
