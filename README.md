@@ -180,6 +180,9 @@ Voor verwerking in code kan het handig zijn om het product in JSON-LD terug te k
 Stap 1: pas Content Type (GRAPH) aan naar "JSON-LD"
 In code betekent dit dat een HTTP request met "Content-Type": "application/ld+json" wordt verstuurd naar het SPARQL endpoint.
 
+In code betekent dit dat je een [SPARQL request](https://www.w3.org/TR/sparql11-protocol/) moet sturen naar "http://localhost:3030/ds/sparql".
+Hier zie je een [voorbeeld](https://query.linkeddatafragments.org/#datasources=http%3A%2F%2Flocalhost%3A3030%2Fds%2Fsparql&query=SELECT%20%3Fs%20%3Fp%20%3Fo%0AWHERE%20%7B%0A%20%20%20%3Fs%20%3Fp%20%3Fo%20.%20%0A%7D%0ALIMIT%2010) in de Comunica client.
+
 Stap 2: frame het JSON-LD object in de JSON-LD playground
 Klik op de tab "Framed"
 
