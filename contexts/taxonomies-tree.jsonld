@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "@base": "https://westtoer.be/id/concepts/",
+    "id": "@id",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "label": {
+      "@id": "skos:prefLabel",
+      "@language": "nl"
+    },
+    "items": "skos:narrower",
+    "labelDutch": {
+      "@id": "label",
+      "@language": "nl"
+    },
+    "labelEnglish": {
+      "@id": "label",
+      "@language": "en"
+    },
+    "labelFrench": {
+      "@id": "label",
+      "@language": "fr"
+    },
+    "labelGerman": {
+      "@id": "label",
+      "@language": "de"
+    }
+  }
+}
