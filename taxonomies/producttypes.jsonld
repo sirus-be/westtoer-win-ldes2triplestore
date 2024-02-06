@@ -1,0 +1,1938 @@
+
+{
+    "@context": {
+      "@base": "https://westtoer.be/id/concept/producttype/",
+      "id": "@id",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "labels": "skos:prefLabel",
+      "taal": "@language",
+      "children": "skos:narrower"
+    },
+    "@included": 
+  [
+    {
+      "id": "06bfef68-10b3-42ee-97aa-6a5b24cae4bf",
+      "label": "Logies",
+      "children": [
+        {
+          "id": "8b38b6f1-1acb-47a3-8193-e985db9dbd00",
+          "label": "Hotel",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Hotel"
+            },
+            {
+              "taal": "fr",
+              "@value": "Hotel"
+            },
+            {
+              "taal": "en",
+              "@value": "Hotel"
+            },
+            {
+              "taal": "de",
+              "@value": "Hotel"
+            }
+          ]
+        },
+        {
+          "id": "95565923-1120-4217-8548-fafc839a700c",
+          "label": "B&B",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "B&B"
+            },
+            {
+              "taal": "fr",
+              "@value": "B&B"
+            },
+            {
+              "taal": "en",
+              "@value": "B&B"
+            },
+            {
+              "taal": "de",
+              "@value": "B&B"
+            }
+          ]
+        },
+        {
+          "id": "b30305ef-f9e7-44f1-9a2d-514c9afed13b",
+          "label": "Kamergerelateerde logies",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Kamergerelateerde logies"
+            },
+            {
+              "taal": "fr",
+              "@value": "Kamergerelateerde logies"
+            },
+            {
+              "taal": "en",
+              "@value": "Kamergerelateerde logies"
+            },
+            {
+              "taal": "de",
+              "@value": "Kamergerelateerde logies"
+            }
+          ]
+        },
+        {
+          "id": "8452c387-233f-41cc-a8bd-19781a69add1",
+          "label": "Kamperen",
+          "children": [
+            {
+              "id": "1a87b00e-2b16-4410-b91c-be4f1337cb8e",
+              "label": "Terreingerelateerde logies",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Terreingerelateerde logies"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Terreingerelateerde logies"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Terreingerelateerde logies"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Terreingerelateerde logies"
+                }
+              ]
+            },
+            {
+              "id": "4f6da354-23da-4443-9453-b7db9eda517c",
+              "label": "Camping",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Camping"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Camping"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Camping"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Camping"
+                }
+              ]
+            },
+            {
+              "id": "b9881eed-18ad-447d-a9cd-d63b64019b6c",
+              "label": "Camperterrein",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Camperterrein"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Camperterrein"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Camperterrein"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Camperterrein"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Kamperen"
+            },
+            {
+              "taal": "fr",
+              "@value": "Kamperen"
+            },
+            {
+              "taal": "en",
+              "@value": "Kamperen"
+            },
+            {
+              "taal": "de",
+              "@value": "Kamperen"
+            }
+          ]
+        },
+        {
+          "id": "851e89c2-85bb-4749-b83a-a7093fd53f4e",
+          "label": "Vakantiepark",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Vakantiepark"
+            },
+            {
+              "taal": "fr",
+              "@value": "Vakantiepark"
+            },
+            {
+              "taal": "en",
+              "@value": "Vakantiepark"
+            },
+            {
+              "taal": "de",
+              "@value": "Vakantiepark"
+            }
+          ]
+        },
+        {
+          "id": "ec0ac682-c8ac-4034-8116-495983578e57",
+          "label": "Jeugd",
+          "children": [
+            {
+              "id": "a75e5543-6a3c-4d92-89d9-62d4206ea5a9",
+              "label": "Hostel",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Hostel"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Hostel"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Hostel"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Hostel"
+                }
+              ]
+            },
+            {
+              "id": "7bca00c8-9bbd-4937-92b1-1f9f9fa3e7ea",
+              "label": "Jeugdverblijf",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Jeugdverblijf"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Jeugdverblijf"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Jeugdverblijf"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Jeugdverblijf"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Jeugd"
+            },
+            {
+              "taal": "fr",
+              "@value": "Jeugd"
+            },
+            {
+              "taal": "en",
+              "@value": "Jeugd"
+            },
+            {
+              "taal": "de",
+              "@value": "Jeugd"
+            }
+          ]
+        },
+        {
+          "id": "45f61341-895b-43dd-853e-2b37ecf08843",
+          "label": "Vakantiewoning",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Vakantiewoning"
+            },
+            {
+              "taal": "fr",
+              "@value": "Vakantiewoning"
+            },
+            {
+              "taal": "en",
+              "@value": "Vakantiewoning"
+            },
+            {
+              "taal": "de",
+              "@value": "Vakantiewoning"
+            }
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "taal": "nl",
+          "@value": "Logies"
+        },
+        {
+          "taal": "fr",
+          "@value": "Logies"
+        },
+        {
+          "taal": "en",
+          "@value": "Logies"
+        },
+        {
+          "taal": "de",
+          "@value": "Logies"
+        }
+      ]
+    },
+    {
+      "id": "cea63717-8525-4996-846c-b99840621241",
+      "label": "Eet- en drinkgelegenheden",
+      "children": [
+        {
+          "id": "0236363e-18b7-4d43-95f2-44bcd27ba64d",
+          "label": "Eetgelegenheid",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Eetgelegenheid"
+            },
+            {
+              "taal": "fr",
+              "@value": "Eetgelegenheid"
+            },
+            {
+              "taal": "en",
+              "@value": "Eetgelegenheid"
+            },
+            {
+              "taal": "de",
+              "@value": "Eetgelegenheid"
+            }
+          ]
+        },
+        {
+          "id": "a4a9e0eb-297f-4b94-997e-c98e335512c2",
+          "label": "Drinkgelegenheid",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Drinkgelegenheid"
+            },
+            {
+              "taal": "fr",
+              "@value": "Drinkgelegenheid"
+            },
+            {
+              "taal": "en",
+              "@value": "Drinkgelegenheid"
+            },
+            {
+              "taal": "de",
+              "@value": "Drinkgelegenheid"
+            }
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "taal": "nl",
+          "@value": "Eet- en drinkgelegenheden"
+        },
+        {
+          "taal": "fr",
+          "@value": "Eet- en drinkgelegenheden"
+        },
+        {
+          "taal": "en",
+          "@value": "Eet- en drinkgelegenheden"
+        },
+        {
+          "taal": "de",
+          "@value": "Eet- en drinkgelegenheden"
+        }
+      ]
+    },
+    {
+      "id": "056770d1-1304-498d-a346-1fe848244eb8",
+      "label": "MICE",
+      "children": [
+        {
+          "id": "6ed042e4-87ff-40a8-bf5a-2b0702ca773d",
+          "label": "Zaal",
+          "children": [],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Zaal"
+            },
+            {
+              "taal": "fr",
+              "@value": "Zaal"
+            },
+            {
+              "taal": "en",
+              "@value": "Zaal"
+            },
+            {
+              "taal": "de",
+              "@value": "Zaal"
+            }
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "taal": "nl",
+          "@value": "MICE"
+        },
+        {
+          "taal": "fr",
+          "@value": "MICE"
+        },
+        {
+          "taal": "en",
+          "@value": "MICE"
+        },
+        {
+          "taal": "de",
+          "@value": "MICE"
+        }
+      ]
+    },
+    {
+      "id": "17c18481-90df-46ea-a84d-b942544a0eeb",
+      "label": "Permanent Aanbod",
+      "children": [
+        {
+          "id": "eb646a97-52fd-451e-a999-cb6b1b4fafff",
+          "label": "Cultuur en erfgoed",
+          "children": [
+            {
+              "id": "d0c1b7ef-717c-4f17-93d3-2846111e4708",
+              "label": "Gebouw / constructie",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Gebouw / constructie"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Gebouw / constructie"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Gebouw / constructie"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Gebouw / constructie"
+                }
+              ]
+            },
+            {
+              "id": "a0d52ff4-ace5-49ba-a44f-02d37350da29",
+              "label": "Monument",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Monument"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Monument"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Monument"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Monument"
+                }
+              ]
+            },
+            {
+              "id": "21bb972a-98ca-4f60-8b51-fb2d331b68b6",
+              "label": "Herdenkingsplaats",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Herdenkingsplaats"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Herdenkingsplaats"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Herdenkingsplaats"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Herdenkingsplaats"
+                }
+              ]
+            },
+            {
+              "id": "1fee1a65-e465-4c3d-bf89-bc440dbbcfb1",
+              "label": "Archeologische site",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Archeologische site"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Archeologische site"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Archeologische site"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Archeologische site"
+                }
+              ]
+            },
+            {
+              "id": "ba28be24-98a6-4ce4-9a00-7ef0aec00954",
+              "label": "Bezoekerscentrum",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Bezoekerscentrum"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Bezoekerscentrum"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Bezoekerscentrum"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Bezoekerscentrum"
+                }
+              ]
+            },
+            {
+              "id": "19e6745b-9e6d-4aa4-be34-9a6e92f3db77",
+              "label": "Museum",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Museum"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Museum"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Museum"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Museum"
+                }
+              ]
+            },
+            {
+              "id": "8f4736e7-f493-49ca-a461-1a83b34d3552",
+              "label": "Kunstgalerie",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Kunstgalerie"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Kunstgalerie"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Kunstgalerie"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Kunstgalerie"
+                }
+              ]
+            },
+            {
+              "id": "bdae423d-5ffb-4517-a757-ca03d6795095",
+              "label": "Kunstatelier",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Kunstatelier"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Kunstatelier"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Kunstatelier"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Kunstatelier"
+                }
+              ]
+            },
+            {
+              "id": "59a0cd0f-4d28-414e-95dd-34ebcdad9de9",
+              "label": "Kunstwerk",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Kunstwerk"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Kunstwerk"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Kunstwerk"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Kunstwerk"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Cultuur en erfgoed"
+            },
+            {
+              "taal": "fr",
+              "@value": "Cultuur en erfgoed"
+            },
+            {
+              "taal": "en",
+              "@value": "Cultuur en erfgoed"
+            },
+            {
+              "taal": "de",
+              "@value": "Cultuur en erfgoed"
+            }
+          ]
+        },
+        {
+          "id": "b921cb9c-fe95-4af0-9c5c-b91430d9e1a0",
+          "label": "Natuur en groen",
+          "children": [
+            {
+              "id": "a89baa32-04d7-422b-aa1d-cb8bd5ea5fe9",
+              "label": "Bos",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Bos"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Bos"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Bos"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Bos"
+                }
+              ]
+            },
+            {
+              "id": "2779870f-717a-42f7-ad41-6f6ad181c6dd",
+              "label": "Domein",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Domein"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Domein"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Domein"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Domein"
+                }
+              ]
+            },
+            {
+              "id": "346c0b1d-1d95-466e-a989-d4bf71903509",
+              "label": "Park / tuin",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Park / tuin"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Park / tuin"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Park / tuin"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Park / tuin"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Natuur en groen"
+            },
+            {
+              "taal": "fr",
+              "@value": "Natuur en groen"
+            },
+            {
+              "taal": "en",
+              "@value": "Natuur en groen"
+            },
+            {
+              "taal": "de",
+              "@value": "Natuur en groen"
+            }
+          ]
+        },
+        {
+          "id": "2f7efdc0-fc95-44ed-abd1-a5ef75b625e5",
+          "label": "Sport- en ontspanning",
+          "children": [
+            {
+              "id": "63d3427a-3ed3-4529-8a86-d09ce3d3ed98",
+              "label": "Wellness",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Wellness"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Wellness"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Wellness"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Wellness"
+                }
+              ]
+            },
+            {
+              "id": "196527ee-d56f-4263-8f1b-03c5cc05ef03",
+              "label": "Manege",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Manege"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Manege"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Manege"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Manege"
+                }
+              ]
+            },
+            {
+              "id": "1acbfcb9-6cfc-4c4e-89a9-5026835c8743",
+              "label": "Adventure",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Adventure"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Adventure"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Adventure"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Adventure"
+                }
+              ]
+            },
+            {
+              "id": "6a36f39c-61d5-48b0-a046-f74d5493370d",
+              "label": "Sportaccommodatie",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Sportaccommodatie"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Sportaccommodatie"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Sportaccommodatie"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Sportaccommodatie"
+                }
+              ]
+            },
+            {
+              "id": "b1de1955-fec9-49d2-a72a-592aa8819157",
+              "label": "Zwemgelegenheid",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Zwemgelegenheid"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Zwemgelegenheid"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Zwemgelegenheid"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Zwemgelegenheid"
+                }
+              ]
+            },
+            {
+              "id": "8a4bb7f5-f691-40d0-87c9-5c746c50817a",
+              "label": "Jachthaven",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Jachthaven"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Jachthaven"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Jachthaven"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Jachthaven"
+                }
+              ]
+            },
+            {
+              "id": "f6e4581a-1c16-445e-b9a5-395698c7fc05",
+              "label": "Strandclub",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Strandclub"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Strandclub"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Strandclub"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Strandclub"
+                }
+              ]
+            },
+            {
+              "id": "aa990693-5124-4fbd-a001-73e34082a156",
+              "label": "Pretpark",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Pretpark"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Pretpark"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Pretpark"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Pretpark"
+                }
+              ]
+            },
+            {
+              "id": "cc11ef55-124f-4187-808a-8a63af55af42",
+              "label": "Dierenpark",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Dierenpark"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Dierenpark"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Dierenpark"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Dierenpark"
+                }
+              ]
+            },
+            {
+              "id": "fcc32486-9fa3-4c8d-93f8-fa0758c0365f",
+              "label": "Kinderboerderij",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Kinderboerderij"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Kinderboerderij"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Kinderboerderij"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Kinderboerderij"
+                }
+              ]
+            },
+            {
+              "id": "021ef34c-ce29-4872-afe4-662e62bac18c",
+              "label": "Speelplek",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Speelplek"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Speelplek"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Speelplek"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Speelplek"
+                }
+              ]
+            },
+            {
+              "id": "299fab48-93cc-4d84-bd99-c9fe3f204c14",
+              "label": "Picknickplek",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Picknickplek"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Picknickplek"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Picknickplek"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Picknickplek"
+                }
+              ]
+            },
+            {
+              "id": "879faf76-5d7e-4361-bcd6-2fc9ebc4823a",
+              "label": "Casino",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Casino"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Casino"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Casino"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Casino"
+                }
+              ]
+            },
+            {
+              "id": "fbd775d5-84e5-4f68-8c09-9f451047f002",
+              "label": "Bioscoop",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Bioscoop"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Bioscoop"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Bioscoop"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Bioscoop"
+                }
+              ]
+            },
+            {
+              "id": "cfd9e0cd-398e-4a47-a26d-f552b6ea96ba",
+              "label": "Spel",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Spel"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Spel"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Spel"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Spel"
+                }
+              ]
+            },
+            {
+              "id": "857c2e86-acf2-41c1-bc8c-5c9661a519ec",
+              "label": "Tour",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Tour"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Tour"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Tour"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Tour"
+                }
+              ]
+            },
+            {
+              "id": "47ca1b3a-8cbb-489f-9c69-fc507564368f",
+              "label": "Verhuur",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Verhuur"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Verhuur"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Verhuur"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Verhuur"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Sport- en ontspanning"
+            },
+            {
+              "taal": "fr",
+              "@value": "Sport- en ontspanning"
+            },
+            {
+              "taal": "en",
+              "@value": "Sport- en ontspanning"
+            },
+            {
+              "taal": "de",
+              "@value": "Sport- en ontspanning"
+            }
+          ]
+        },
+        {
+          "id": "add13215-08a9-4f52-9bc1-7337d8f4a878",
+          "label": "Lokale bedrijven en diensten",
+          "children": [
+            {
+              "id": "26405b17-b44d-45fe-8726-0812de9e4d28",
+              "label": "Winkel",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Winkel"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Winkel"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Winkel"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Winkel"
+                }
+              ]
+            },
+            {
+              "id": "4aae48b4-cd29-442e-abd5-c73865718bfc",
+              "label": "Toeristisch infokantoor",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Toeristisch infokantoor"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Toeristisch infokantoor"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Toeristisch infokantoor"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Toeristisch infokantoor"
+                }
+              ]
+            },
+            {
+              "id": "1c20790d-0eda-4861-9136-c49995f06258",
+              "label": "Aanbieder van picknick",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Aanbieder van picknick"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Aanbieder van picknick"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Aanbieder van picknick"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Aanbieder van picknick"
+                }
+              ]
+            },
+            {
+              "id": "75fd7431-9998-4497-a241-0bf58b75e539",
+              "label": "Producent hoeveproduct",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Producent hoeveproduct"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Producent hoeveproduct"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Producent hoeveproduct"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Producent hoeveproduct"
+                }
+              ]
+            },
+            {
+              "id": "fdc1a403-8508-41e0-a3a2-87c2cdbfe37c",
+              "label": "Producent streekproduct",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Producent streekproduct"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Producent streekproduct"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Producent streekproduct"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Producent streekproduct"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Lokale bedrijven en diensten"
+            },
+            {
+              "taal": "fr",
+              "@value": "Lokale bedrijven en diensten"
+            },
+            {
+              "taal": "en",
+              "@value": "Lokale bedrijven en diensten"
+            },
+            {
+              "taal": "de",
+              "@value": "Lokale bedrijven en diensten"
+            }
+          ]
+        },
+        {
+          "id": "ca8a605f-84b0-49e2-9ef6-c0217aa14853",
+          "label": "Vervoer",
+          "children": [
+            {
+              "id": "7ad71043-d6fb-4bfd-9e6d-bf030f49ecb8",
+              "label": "Veer",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Veer"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Veer"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Veer"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Veer"
+                }
+              ]
+            },
+            {
+              "id": "9e960dd0-8181-4477-9e9a-a4a56efccc17",
+              "label": "Kabelbaan",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Kabelbaan"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Kabelbaan"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Kabelbaan"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Kabelbaan"
+                }
+              ]
+            },
+            {
+              "id": "de57dd01-3da2-482a-8706-601abf96f240",
+              "label": "Aanlegsteiger",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Aanlegsteiger"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Aanlegsteiger"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Aanlegsteiger"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Aanlegsteiger"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Vervoer"
+            },
+            {
+              "taal": "fr",
+              "@value": "Vervoer"
+            },
+            {
+              "taal": "en",
+              "@value": "Vervoer"
+            },
+            {
+              "taal": "de",
+              "@value": "Vervoer"
+            }
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "taal": "nl",
+          "@value": "Permanent Aanbod"
+        },
+        {
+          "taal": "fr",
+          "@value": "Permanent Aanbod"
+        },
+        {
+          "taal": "en",
+          "@value": "Permanent Aanbod"
+        },
+        {
+          "taal": "de",
+          "@value": "Permanent Aanbod"
+        }
+      ]
+    },
+    {
+      "id": "2e577149-7520-450a-9de6-824cd5d8f652",
+      "label": "Tijdelijk aanbod",
+      "children": [
+        {
+          "id": "0dd89244-6152-40c8-b197-8492ab5bc0a6",
+          "label": "Kijken en luisteren",
+          "children": [
+            {
+              "id": "bf9c8479-7bd2-46c0-a6f2-afd09b5d3a2e",
+              "label": "Concert",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Concert"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Concert"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Concert"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Concert"
+                }
+              ]
+            },
+            {
+              "id": "f8eff074-b83c-49ec-8682-8f258bb7b6fa",
+              "label": "Festival",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Festival"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Festival"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Festival"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Festival"
+                }
+              ]
+            },
+            {
+              "id": "c1fc112d-93c7-4bed-a955-cb017d6e00a8",
+              "label": "Theatervoorstelling",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Theatervoorstelling"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Theatervoorstelling"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Theatervoorstelling"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Theatervoorstelling"
+                }
+              ]
+            },
+            {
+              "id": "1ca19bd2-3676-441a-91f4-e13fdcd7138a",
+              "label": "Dansvoorstelling",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Dansvoorstelling"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Dansvoorstelling"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Dansvoorstelling"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Dansvoorstelling"
+                }
+              ]
+            },
+            {
+              "id": "0957e082-cfca-4d44-bfa7-d136e3c70d1c",
+              "label": "Lezing of congres",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Lezing of congres"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Lezing of congres"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Lezing of congres"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Lezing of congres"
+                }
+              ]
+            },
+            {
+              "id": "05454eea-8d7c-4591-92f9-ce8d75284473",
+              "label": "Film",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Film"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Film"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Film"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Film"
+                }
+              ]
+            },
+            {
+              "id": "b51b728b-c412-4d7f-afc1-286010747c74",
+              "label": "Sportwedstrijd bekijken",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Sportwedstrijd bekijken"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Sportwedstrijd bekijken"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Sportwedstrijd bekijken"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Sportwedstrijd bekijken"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Kijken en luisteren"
+            },
+            {
+              "taal": "fr",
+              "@value": "Kijken en luisteren"
+            },
+            {
+              "taal": "en",
+              "@value": "Kijken en luisteren"
+            },
+            {
+              "taal": "de",
+              "@value": "Kijken en luisteren"
+            }
+          ]
+        },
+        {
+          "id": "3a6a4278-27ea-4c8f-91e2-a814f28fa25d",
+          "label": "Bezoeken en beleven",
+          "children": [
+            {
+              "id": "bbba3adc-1a6d-48b7-b185-57d1676d526c",
+              "label": "Markt, braderie of kermis",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Markt, braderie of kermis"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Markt, braderie of kermis"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Markt, braderie of kermis"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Markt, braderie of kermis"
+                }
+              ]
+            },
+            {
+              "id": "4fcb52f6-78d2-4491-bbbc-32a173aa7da1",
+              "label": "Fiets- en wandeltocht",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Fiets- en wandeltocht"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Fiets- en wandeltocht"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Fiets- en wandeltocht"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Fiets- en wandeltocht"
+                }
+              ]
+            },
+            {
+              "id": "be2fde02-cdcf-421d-8917-2abc504c5742",
+              "label": "Cursus of workshop",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Cursus of workshop"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Cursus of workshop"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Cursus of workshop"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Cursus of workshop"
+                }
+              ]
+            },
+            {
+              "id": "3d8010a6-387a-43cd-92b0-0eee47a94462",
+              "label": "Festiviteit",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Festiviteit"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Festiviteit"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Festiviteit"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Festiviteit"
+                }
+              ]
+            },
+            {
+              "id": "52b7c322-720f-479e-b4a9-24808f3f91d8",
+              "label": "Beurs",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Beurs"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Beurs"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Beurs"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Beurs"
+                }
+              ]
+            },
+            {
+              "id": "285643a5-1903-4925-8712-ab11a7ac6d80",
+              "label": "Sportactiviteit",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Sportactiviteit"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Sportactiviteit"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Sportactiviteit"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Sportactiviteit"
+                }
+              ]
+            },
+            {
+              "id": "7393cdc3-dace-4229-b5ab-fecedb219f2a",
+              "label": "Party of fuif",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Party of fuif"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Party of fuif"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Party of fuif"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Party of fuif"
+                }
+              ]
+            },
+            {
+              "id": "9bb35c72-f7bc-456b-8aa8-71cdd69e4277",
+              "label": "Spel of quiz",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Spel of quiz"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Spel of quiz"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Spel of quiz"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Spel of quiz"
+                }
+              ]
+            },
+            {
+              "id": "93c7c170-7c0b-46ae-bf2e-1e7577a25d83",
+              "label": "Tentoonstelling",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Tentoonstelling"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Tentoonstelling"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Tentoonstelling"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Tentoonstelling"
+                }
+              ]
+            },
+            {
+              "id": "ceac4583-dbe2-411d-8ef5-25c4ded63d7d",
+              "label": "Begeleide uitstap of rondleiding",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Begeleide uitstap of rondleiding"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Begeleide uitstap of rondleiding"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Begeleide uitstap of rondleiding"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Begeleide uitstap of rondleiding"
+                }
+              ]
+            },
+            {
+              "id": "a6babd6f-c72a-4977-8e87-25cf2d648ba0",
+              "label": "Opendeurdag",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Opendeurdag"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Opendeurdag"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Opendeurdag"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Opendeurdag"
+                }
+              ]
+            },
+            {
+              "id": "361aab1d-1215-4fe6-9fac-66db9c1313a7",
+              "label": "Eet- en drankfestijn",
+              "children": [],
+              "labels": [
+                {
+                  "taal": "nl",
+                  "@value": "Eet- en drankfestijn"
+                },
+                {
+                  "taal": "fr",
+                  "@value": "Eet- en drankfestijn"
+                },
+                {
+                  "taal": "en",
+                  "@value": "Eet- en drankfestijn"
+                },
+                {
+                  "taal": "de",
+                  "@value": "Eet- en drankfestijn"
+                }
+              ]
+            }
+          ],
+          "labels": [
+            {
+              "taal": "nl",
+              "@value": "Bezoeken en beleven"
+            },
+            {
+              "taal": "fr",
+              "@value": "Bezoeken en beleven"
+            },
+            {
+              "taal": "en",
+              "@value": "Bezoeken en beleven"
+            },
+            {
+              "taal": "de",
+              "@value": "Bezoeken en beleven"
+            }
+          ]
+        }
+      ],
+      "labels": [
+        {
+          "taal": "nl",
+          "@value": "Tijdelijk aanbod"
+        },
+        {
+          "taal": "fr",
+          "@value": "Tijdelijk aanbod"
+        },
+        {
+          "taal": "en",
+          "@value": "Tijdelijk aanbod"
+        },
+        {
+          "taal": "de",
+          "@value": "Tijdelijk aanbod"
+        }
+      ]
+    }
+  ]
+  }
+  
