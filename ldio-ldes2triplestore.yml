@@ -14,25 +14,25 @@ orchestrator:
           config:
             versionOf-property: “http://purl.org/dc/terms/isVersionOf”
       outputs:
-        #- name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
+        - name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
         - name: be.vlaanderen.informatievlaanderen.ldes.ldi.RepositoryMaterialiser
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
             repository-id: jena
             named-graph: http://example.org/westtoer
     - name: taxonomies
-      description: "This pipeline will take the latest version products from Westtoer, and send to a LDES server"
+      description: "This pipeline will fetch the product types and tree taxonomies."
       input:
         name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioHttpInPoller
         config:
           url:
-            - https://brechtvdv.github.io/demo-data/westtoer-producttypes.jsonld
-          cron: "*/10 * * * * *"
-          interval: PT600S
+            - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/producttypes.jsonld
+            - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/taxonomies-tree.jsonld
+          cron: "*/60 * * * * *"
         adapter:
             name: be.vlaanderen.informatievlaanderen.ldes.ldi.RdfAdapter
       outputs:
-        #- name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
+        - name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
         - name: be.vlaanderen.informatievlaanderen.ldes.ldi.RepositoryMaterialiser
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
