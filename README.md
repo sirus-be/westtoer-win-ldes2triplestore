@@ -9,6 +9,7 @@ Ga naar `http://localhost:3030/#/dataset/ds/query`
 Voorbeeld-query:
 
 ```
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
 PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
@@ -26,7 +27,7 @@ PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeLabel ?status ?faciliteiten ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoon ?lat ?long
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeLabel ?status ?faciliteiten ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoon ?lat ?long ?toeristischeregioId ?toeristischeregioLabel
 WHERE {
     ?productVersie a schema:TouristAttraction .
 
@@ -112,8 +113,10 @@ WHERE {
     }
 
     OPTIONAL {
-        ?productVersie logies:behoortTotToeristischeRegio/skos:prefLabel ?toeristischeregio .
-        FILTER (lang(?toeristischeregio) = 'nl')
+        ?productVersie logies:behoortTotToeristischeRegio ?toeristischeregio .
+    	?toeristischeregio dcterms:isVersionOf/owl:sameAs ?toeristischeregioId .
+    	?toeristischeregio skos:prefLabel ?toeristischeregioLabel .
+        FILTER (lang(?toeristischeregioLabel) = 'nl')
     }
 
   # Filter op WinId
