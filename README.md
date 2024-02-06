@@ -27,7 +27,7 @@ PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeLabel ?status ?faciliteiten ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoon ?lat ?long ?toeristischeregioId ?toeristischeregioLabel
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeLabel ?status ?faciliteiten ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoon ?lat ?long ?toeristischeregioTVLId ?toeristischeregioLabel
 WHERE {
     ?productVersie a schema:TouristAttraction .
 
@@ -114,7 +114,8 @@ WHERE {
 
     OPTIONAL {
         ?productVersie logies:behoortTotToeristischeRegio ?toeristischeregio .
-    	?toeristischeregio dcterms:isVersionOf/owl:sameAs ?toeristischeregioId .
+		?toeristischeregio dcterms:isVersionOf/owl:sameAs ?toeristischeregioTVL .
+	    BIND (str(?toeristischeregioTVL) as ?toeristischeregioTVLId) .
     	?toeristischeregio skos:prefLabel ?toeristischeregioLabel .
         FILTER (lang(?toeristischeregioLabel) = 'nl')
     }
@@ -130,6 +131,10 @@ WHERE {
 
 Onderaan de query kan gefilterd worden op WIN ID en producttypes dat onder "Permanent Aanbod" vallen.
 Verwijder het spoorwegteken om uit commentaar te zetten.
+
+Opmerkingen:
+* Deze resultaten kunnen verwerkt worden als JSON (sparql11-results-json). Zie meer info [hier](https://www.w3.org/TR/sparql11-results-json/).
+* Er komt een punt dat er te veel producten zijn om in 1 HTTP response te passen. Dan dient er gepagineerd te worden met LIMIT en OFFSET. Zie meer info [hier](https://www.w3.org/TR/sparql11-query/#sparqlOffsetLimit).
 
 ## Alle info van 1 specifiek product
 
@@ -161,18 +166,18 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
 CONSTRUCT {
-  ?product ?p ?o .
+  ?productVersie ?p ?o .
   ?o ?p2 ?o2 .
   ?o2 ?p3 ?o3 .
 } WHERE {
-  ?product ?p ?o .
+  ?productVersie ?p ?o .
   OPTIONAL {
   ?o ?p2 ?o2 .
     OPTIONAL {
     ?o2 ?p3 ?o3 .
     }
   }
-  VALUES ?product { <https://westtoer.be/id/product/76ec83f9-6dfb-4039-9eb7-701da08efbfd/2023-11-23T12:46:11.6388872Z> }
+  VALUES ?productVersie { <https://westtoer.be/id/product/76ec83f9-6dfb-4039-9eb7-701da08efbfd/2023-11-23T12:46:11.6388872Z> }
 }
 ```
 
@@ -185,7 +190,7 @@ In code betekent dit dat een HTTP request met "Content-Type": "application/ld+js
 
 In code betekent dit dat je een [SPARQL request](https://www.w3.org/TR/sparql11-protocol/) moet sturen naar "http://localhost:3030/ds/sparql".
 Hier zie je een [voorbeeld](https://query.linkeddatafragments.org/#datasources=http%3A%2F%2Flocalhost%3A3030%2Fds%2Fsparql&query=SELECT%20%3Fs%20%3Fp%20%3Fo%0AWHERE%20%7B%0A%20%20%20%3Fs%20%3Fp%20%3Fo%20.%20%0A%7D%0ALIMIT%2010) in de Comunica client.
-
+ 
 Stap 2: frame het JSON-LD object in de JSON-LD playground
 Klik op de tab "Framed"
 
@@ -205,6 +210,173 @@ Zie [hier](https://json-ld.org/playground/#startTab=tab-compacted&json-ld=%7B%22
 
 In code betekent dit dat je een JSON-LD library moet gebruiken om compaction toe te passen.
 
+## Overzicht van producten in JSON-LD
 
+Om een overzicht van producten in JSON-LD te krijgen, doen we hetzelfde als vorige stap (Content-Type JSON-LD), mits volgende aanpassing:
+in plaats van een VALUES block te gebruiken, voegen we een SELECT query (zoals eerste stap) toe in de WHERE-clausule.
 
+Dit ziet er ruwweg zo uit:
+```
+CONSTRUCT {
+  ?productVersie ?p ?o .
+  ?o ?p2 ?o2 .
+  ?o2 ?p3 ?o3 .
+} WHERE {
+  ### SELECT in plaats van VALUES
+  {
+    SELECT DISTINCT ?productVersie
+    WHERE { ... }
+  }
+  ###
 
+  ?productVersie ?p ?o .
+  OPTIONAL {
+  ?o ?p2 ?o2 .
+    OPTIONAL {
+    ?o2 ?p3 ?o3 .
+    }
+  }
+}
+```
+
+Voorbeeld-query:
+
+```
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX generiek: <https://data.vlaanderen.be/ns/generiek#>
+PREFIX logies: <https://data.vlaanderen.be/ns/logies#>
+PREFIX log: <http://www.w3.org/2000/10/swap/log#>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX schema: <https://schema.org/>
+PREFIX westtoerns: <https://westtoer.be/ns#>
+PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
+PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX adms: <http://www.w3.org/ns/adms#>
+
+CONSTRUCT {
+  ?productVersie ?p ?o .
+  ?o ?p2 ?o2 .
+  ?o2 ?p3 ?o3 .
+}
+WHERE {
+  {
+    SELECT DISTINCT ?productVersie
+    WHERE {
+      ?productVersie a schema:TouristAttraction .
+
+      OPTIONAL {
+        ?productVersie adms:identifier [ skos:notation ?winId ]
+      }
+
+      OPTIONAL {
+        ?productVersie prov:generatedAtTime ?wijzigingsdatum .
+      }
+
+      OPTIONAL {
+        ?productVersie schema:amenityFeature [
+            schema:name ?faciliteit
+        ]
+      }
+
+      OPTIONAL {
+        SELECT DISTINCT ?productVersie (group_concat(?faciliteit;separator=', ') as ?faciliteiten)
+        WHERE {
+          ?productVersie schema:amenityFeature [
+              schema:name ?faciliteit
+          ]
+        } 
+        GROUP BY ?productVersie
+      }
+
+      OPTIONAL {
+        ?productVersie schema:contactPoint [
+            foaf:page ?website ;
+            schema:email ?email ;
+            schema:telephone ?telefoon
+        ]
+      }
+
+      OPTIONAL {
+        ?productVersie schema:additionalType/dcterms:isVersionOf ?type .
+        ?type skos:prefLabel ?typeLabel .
+        FILTER (lang(?typeLabel) = 'nl')
+      }
+
+      OPTIONAL {
+        ?productVersie westtoerns:Product.status/dcterms:isVersionOf/skos:prefLabel ?status .
+        FILTER (lang(?status) = 'nl')
+      }
+
+      OPTIONAL {
+        ?productVersie locn:geometry [
+            wgs84:lat ?lat ;
+            wgs84:long ?long 
+        ] .
+      }
+
+      OPTIONAL {
+        ?productVersie schema:name ?naam .
+        FILTER (lang(?naam) = 'nl')
+      }
+
+      OPTIONAL {
+        ?productVersie schema:description ?beschrijving .
+        FILTER (lang(?beschrijving) = 'nl')
+      }
+
+      OPTIONAL {
+        ?productVersie locn:address [
+            locn:thoroughfare ?straatnaam ;
+            adres:Adresvoorstelling.huisnummer ?huisnummer ;
+            locn:postCode ?postcode ;
+            adres:gemeentenaam ?gemeente ;
+            westtoerns:gemeenteniscode ?niscode ;
+            ] .
+      }
+      OPTIONAL {
+        ?productVersie locn:address [
+            adres:Adresvoorstelling.busnummer ?busnummer
+        ] .
+      }
+      OPTIONAL {
+        ?productVersie locn:address [
+            locn:adminUnitL2 ?provincie
+        ] .
+        FILTER (lang(?provincie) = "nl")
+      }
+
+      OPTIONAL {
+        ?productVersie logies:behoortTotToeristischeRegio ?toeristischeregio .
+        ?toeristischeregio dcterms:isVersionOf/owl:sameAs ?toeristischeregioTVL .
+        BIND (str(?toeristischeregioTVL) as ?toeristischeregioTVLId) .
+        ?toeristischeregio skos:prefLabel ?toeristischeregioLabel .
+        FILTER (lang(?toeristischeregioLabel) = 'nl')
+      }
+
+      # Filter op WinId
+      # FILTER (str(?winId) = "1000309")
+
+      # Enkel producttypes onder bepaald hoofdtype
+      # ?parentType skos:prefLabel "Permanent Aanbod"@nl ;
+      #           skos:narrower+ ?type .
+    }
+    LIMIT 10000
+    OFFSET 0
+  }
+  
+  ?productVersie ?p ?o .
+  OPTIONAL {
+    ?o ?p2 ?o2 .
+    OPTIONAL {
+      ?o2 ?p3 ?o3 .
+    }
+  }
+}
+```
