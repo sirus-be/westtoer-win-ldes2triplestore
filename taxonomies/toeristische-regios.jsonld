@@ -1,0 +1,65 @@
+{
+    "@context": {
+        "@base": "https://westtoer.be/id/toeristischeregio/",
+        "id": "@id",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "label": {
+            "@id": "skos:prefLabel",
+            "@language": "nl"
+        },
+        "items": "skos:narrower",
+        "labelDutch": {
+            "@id": "label",
+            "@language": "nl"
+        },
+        "labelEnglish": {
+            "@id": "label",
+            "@language": "en"
+        },
+        "labelFrench": {
+            "@id": "label",
+            "@language": "fr"
+        },
+        "labelGerman": {
+            "@id": "label",
+            "@language": "de"
+        },
+        "owl": "http://www.w3.org/2002/07/owl#",
+        "sameAs": {
+            "@id": "owl:sameAs",
+            "@type": "@id"
+        }
+    },
+    "@included": [
+        {
+            "id": "158cd294-810e-4211-9a2d-5dcb799d0554",
+            "label": "Brugse Ommeland",
+            "sameAs": "https://linked.toerismevlaanderen.be/id/touristic-regions/1ea20947-f120-4d2f-b9ec-c5cb8844c510"
+        },
+        {
+            "id": "af605677-e22f-4602-8860-57ac66e0e066",
+            "label": "Kunststad Brugge",
+            "sameAs": "https://linked.toerismevlaanderen.be/id/touristic-regions/35605b6f-0b57-45ae-a6bc-1a4626375563"
+        },
+        {
+            "id": "0660eb9b-2570-43d4-ada8-5820f24cfaa4",
+            "label": "Kunststad Gent",
+            "sameAs": "https://linked.toerismevlaanderen.be/id/touristic-regions/ed7b5c5c-4235-4967-b9aa-0cd4b03f558f"
+        },
+        {
+            "id": "9f5fd8a9-d354-492b-bda8-25ebd8422fe9",
+            "label": "Kust",
+            "sameAs": "https://linked.toerismevlaanderen.be/id/touristic-regions/4fac735f-0c74-43b9-bde1-1bc5fe809ccc"
+        },
+        {
+            "id": "18918284-3809-4c71-8c2e-815f3d5611e7",
+            "label": "Leiestreek",
+            "sameAs": "https://linked.toerismevlaanderen.be/id/touristic-regions/16bacff2-3d77-4205-9196-372c4841c854"
+        },
+        {
+            "id": "b38e00c7-9f66-409e-8a7d-a67258894fa7",
+            "label": "Westhoek",
+            "sameAs": "https://linked.toerismevlaanderen.be/id/touristic-regions/172629db-dd70-45ec-b56b-6ea4f0b07d05"
+        }
+    ]
+}

@@ -28,6 +28,7 @@ orchestrator:
           url:
             - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/producttypes.jsonld
             - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/taxonomies-tree.jsonld
+            - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/toeristische-regios.jsonld
           cron: "*/60 * * * * *"
         adapter:
             name: be.vlaanderen.informatievlaanderen.ldes.ldi.RdfAdapter
