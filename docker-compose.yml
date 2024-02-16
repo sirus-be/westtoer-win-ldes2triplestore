@@ -46,7 +46,7 @@ services:
   curl-create-rdf4j-repository:
     image: alpine/curl
     container_name: curl_create_rdf4j_repository
-    restart: no
+    restart: 'no'
     depends_on:
       rdf4j-server:
         condition: "service_healthy"
