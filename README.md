@@ -170,14 +170,17 @@ CONSTRUCT {
   ?o ?p2 ?o2 .
   ?o2 ?p3 ?o3 .
 } WHERE {
-  ?productVersie ?p ?o .
+  ?productVersie ?p ?o ;
+    		dcterms:isVersionOf ?product .
   OPTIONAL {
   ?o ?p2 ?o2 .
     OPTIONAL {
     ?o2 ?p3 ?o3 .
     }
   }
-  VALUES ?productVersie { <https://westtoer.be/id/product/76ec83f9-6dfb-4039-9eb7-701da08efbfd/2023-11-23T12:46:11.6388872Z> }
+  VALUES ?product { <https://westtoer.be/id/product/76ec83f9-6dfb-4039-9eb7-701da08efbfd> }
+  # Of met versie:
+  # VALUES ?productVersie { <https://westtoer.be/id/product/76ec83f9-6dfb-4039-9eb7-701da08efbfd/2023-11-23T12:46:11.6388872Z> }
 }
 ```
 
@@ -380,3 +383,58 @@ WHERE {
   }
 }
 ```
+
+### Overzicht van productlijsten
+
+```
+PREFIX dcm: <http://purl.org/dc/dcmitype/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX generiek: <https://data.vlaanderen.be/ns/generiek#>
+PREFIX logies: <https://data.vlaanderen.be/ns/logies#>
+PREFIX log: <http://www.w3.org/2000/10/swap/log#>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX schema: <https://schema.org/>
+PREFIX westtoerns: <https://westtoer.be/ns#>
+PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+SELECT DISTINCT ?productlist ?productlistVersie ?latestGeneratedAtTime ?name ?description ?product WHERE {
+  ?productlistVersie prov:generatedAtTime ?latestGeneratedAtTime ;
+                     dcterms:isVersionOf ?productlist .
+
+  OPTIONAL {
+    ?productlistVersie schema:name ?name .
+    FILTER (lang(?name) = "nl")
+  }
+
+  OPTIONAL {
+    ?productlistVersie schema:description ?description .
+    FILTER (lang(?description) = "nl")
+  }
+  OPTIONAL {
+    ?productlistVersie dcterms:hasPart ?product .
+  }
+  {
+    # Get latest version timestamp (generatedAtTime) for every productlist
+    SELECT ?productlist (MAX(?generatedAtTime) as ?latestGeneratedAtTime)
+    WHERE {
+      ?productlistVersie a dcmitype:Collection ;
+             dcterms:isVersionOf ?productlist ;
+             prov:generatedAtTime ?generatedAtTime .
+      # geef niet samengestelde producten terug (zijn zowel een collectie als tourist attraction)
+      FILTER NOT EXISTS { ?productlistVersie a schema:TouristAttraction . }
+    }
+    GROUP BY ?productlist
+    
+    # Paginering is nodig wanneer er teveel lijsten zijn om in 1 HTTP response te steken
+    # LIMIT 50
+    # OFFSET 0
+  }
+}
+```
+
+Gebruik de query [hierboven](#alle-info-van-1-specifiek-product) om alle info van de specifieke producten binnen de lijst op te halen.
