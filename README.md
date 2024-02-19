@@ -126,6 +126,9 @@ WHERE {
   # Enkel producttypes onder bepaald hoofdtype
   # ?parentType skos:prefLabel "Permanent Aanbod"@nl ;
   #           skos:narrower+ ?type .
+  
+  # Wijzingen sedert timestamp
+  # FILTER (?wijzigingsdatum >= "2024-02-05T18:07:52Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
 }
 ```
 
