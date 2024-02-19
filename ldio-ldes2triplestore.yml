@@ -9,10 +9,10 @@ orchestrator:
           sourceFormat: text/turtle
           retries:
             enabled: true
-      transformers:
-        - name: be.vlaanderen.informatievlaanderen.ldes.ldi.VersionMaterialiser
-          config:
-            versionOf-property: “http://purl.org/dc/terms/isVersionOf”
+      # transformers:
+      #   - name: be.vlaanderen.informatievlaanderen.ldes.ldi.VersionMaterialiser
+      #     config:
+      #       versionOf-property: http://purl.org/dc/terms/isVersionOf
       outputs:
         - name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
         - name: be.vlaanderen.informatievlaanderen.ldes.ldi.RepositoryMaterialiser
