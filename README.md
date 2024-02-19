@@ -51,6 +51,7 @@ WHERE {
            ?productVersie schema:amenityFeature [
         		schema:name ?faciliteit
     		]
+	   FILTER(lang(?faciliteit) = 'nl')
          } 
           GROUP BY ?productVersie
     }
