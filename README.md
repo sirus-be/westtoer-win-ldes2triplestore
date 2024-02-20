@@ -132,15 +132,15 @@ WHERE {
   #?parentType skos:prefLabel "Eet- en drinkgelegenheden"@nl ;
   #           skos:narrower+ ?type .
   
-  # Enkel producttypes onder "Eet- en drinkgelegenheden"
+  # Enkel producttypes onder "MICE"
   #?parentType skos:prefLabel "MICE"@nl ;
   #           skos:narrower+ ?type .
   
-  # Enkel producttypes onder "Eet- en drinkgelegenheden"
+  # Enkel producttypes onder "Permanent Aanbod"
   #?parentType skos:prefLabel "Permanent Aanbod"@nl ;
   #           skos:narrower+ ?type .
   
-  # Enkel producttypes onder "Eet- en drinkgelegenheden"
+  # Enkel producttypes onder "Tijdelijk aanbod"
   #?parentType skos:prefLabel "Tijdelijk aanbod"@nl ;
   #           skos:narrower+ ?type .
   
