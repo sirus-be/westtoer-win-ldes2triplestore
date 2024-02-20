@@ -124,8 +124,24 @@ WHERE {
   # Filter op WinId
   # FILTER (str(?winId) = "1000309")
   
-  # Enkel producttypes onder bepaald hoofdtype
-  # ?parentType skos:prefLabel "Permanent Aanbod"@nl ;
+   # Enkel producttypes onder "Logies"
+  #?parentType skos:prefLabel "Logies"@nl ;
+  #           skos:narrower+ ?type .
+  
+  # Enkel producttypes onder "Eet- en drinkgelegenheden"
+  #?parentType skos:prefLabel "Eet- en drinkgelegenheden"@nl ;
+  #           skos:narrower+ ?type .
+  
+  # Enkel producttypes onder "Eet- en drinkgelegenheden"
+  #?parentType skos:prefLabel "MICE"@nl ;
+  #           skos:narrower+ ?type .
+  
+  # Enkel producttypes onder "Eet- en drinkgelegenheden"
+  #?parentType skos:prefLabel "Permanent Aanbod"@nl ;
+  #           skos:narrower+ ?type .
+  
+  # Enkel producttypes onder "Eet- en drinkgelegenheden"
+  #?parentType skos:prefLabel "Tijdelijk aanbod"@nl ;
   #           skos:narrower+ ?type .
   
   # Wijzingen sedert timestamp
