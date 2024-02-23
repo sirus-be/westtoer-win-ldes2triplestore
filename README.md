@@ -156,6 +156,25 @@ Opmerkingen:
 * Deze resultaten kunnen verwerkt worden als JSON (sparql11-results-json). Zie meer info [hier](https://www.w3.org/TR/sparql11-results-json/).
 * Er komt een punt dat er te veel producten zijn om in 1 HTTP response te passen. Dan dient er gepagineerd te worden met LIMIT en OFFSET. Zie meer info [hier](https://www.w3.org/TR/sparql11-query/#sparqlOffsetLimit).
 
+## Monitoring
+
+Het kan even duren vooraleer alle productversie's uit de LDES gesynchronizeerd zijn met de lokale triplestore.
+Om te checken of alles goed binnenstroomt / geen versie's meer binnenkomen, kan volgende COUNT query gebruikt worden:
+```
+PREFIX schema: <https://schema.org/>
+
+SELECT (count(distinct ?productVersie) as ?c)
+WHERE {
+    ?productVersie a schema:TouristAttraction .
+}
+```
+
+Ook het "info" tabblad op `http://localhost:3030/#/dataset/ds/info` geeft inzicht of er (nog) data binnenstroomt of niet.
+
+Tip: als je twijfelt, herstart de Docker containers:
+CTRL-C en `docker-compose start`
+OF `docker-compose restart`
+
 ## Alle info van 1 specifiek product
 
 Om zicht te krijgen wat er allemaal beschikbaar is over 1 product gebruiken we een SPARQL CONSTRUCT query.
