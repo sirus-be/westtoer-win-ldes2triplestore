@@ -9,7 +9,12 @@ services:
     networks:
       - ldes
     depends_on:
-      - curl-create-rdf4j-repository
+      curl-create-rdf4j-repository:
+        condition: "service_completed_successfully"
+      rdf4j-server:
+        condition: "service_healthy"
+      fuseki:
+        condition: "service_healthy"
   fuseki:
     image:  secoresearch/fuseki
     container_name: westtoer_ldes2triplestore_fuseki
