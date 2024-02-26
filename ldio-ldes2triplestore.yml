@@ -5,7 +5,7 @@ orchestrator:
       input:
         name: be.vlaanderen.informatievlaanderen.ldes.ldi.client.LdioLdesClient
         config:
-          url: https://ca-westtoer-ldes.bluesea-b3dcdb70.westeurope.azurecontainerapps.io/touristattractions
+          url: https://ca-westtoer-ldes.bluesea-b3dcdb70.westeurope.azurecontainerapps.io/touristattractions/latestView
           sourceFormat: text/turtle
           retries:
             enabled: true
