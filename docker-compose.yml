@@ -50,7 +50,7 @@ services:
       retries: 5
   curl-create-rdf4j-repository:
     image: alpine/curl
-    container_name: curl_create_rdf4j_repository
+    container_name: curl-create-rdf4j-repository
     restart: 'no'
     depends_on:
       rdf4j-server:

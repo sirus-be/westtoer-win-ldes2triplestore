@@ -9,17 +9,19 @@ orchestrator:
           sourceFormat: text/turtle
           retries:
             enabled: true
-      # transformers:
-      #   - name: be.vlaanderen.informatievlaanderen.ldes.ldi.VersionMaterialiser
-      #     config:
-      #       versionOf-property: http://purl.org/dc/terms/isVersionOf
+          state: file
+          keep-state: true
+          timestamp-path: http://www.w3.org/ns/prov#generatedAtTime
+      transformers:
+        - name: be.vlaanderen.informatievlaanderen.ldes.ldi.VersionMaterialiser
+          config:
+            versionOf-property: http://purl.org/dc/terms/isVersionOf
       outputs:
         - name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
         - name: be.vlaanderen.informatievlaanderen.ldes.ldi.RepositoryMaterialiser
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
             repository-id: jena
-            named-graph: http://example.org/westtoer
     - name: taxonomies
       description: "This pipeline will fetch the product types and tree taxonomies."
       input:
@@ -38,4 +40,3 @@ orchestrator:
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
             repository-id: jena
-            named-graph: http://example.org/westtoer

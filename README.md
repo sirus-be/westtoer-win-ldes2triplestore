@@ -27,125 +27,127 @@ PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeLabel ?status ?faciliteiten ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoon ?lat ?long ?toeristischeregioTVLId ?toeristischeregioLabel
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeLabel ?status ?faciliteiten ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoon ?lat ?long ?toeristischeregioTVLId ?toeristischeregioLabel ?productURI
 WHERE {
-    ?productVersie a schema:TouristAttraction .
+    GRAPH <urn:x-arq:DefaultGraph> {
+      ?product a schema:TouristAttraction .
 
-    OPTIONAL {
-    	?productVersie adms:identifier [ skos:notation ?winId ]
-    }
+      OPTIONAL {
+          ?product adms:identifier [ skos:notation ?winId ]
+      }
 
-    OPTIONAL {
-        ?productVersie prov:generatedAtTime ?wijzigingsdatum .
-    }
-	
-  	OPTIONAL {
-    	?productVersie schema:amenityFeature [
-        	schema:name ?faciliteit
-    	]
-  	}
-  
-  	OPTIONAL {
-      SELECT DISTINCT ?productVersie (group_concat(?faciliteit;separator=', ') as ?faciliteiten)
-         WHERE {
-           ?productVersie schema:amenityFeature [
-        		schema:name ?faciliteit
-    		]
-	   FILTER(lang(?faciliteit) = 'nl')
-         } 
-          GROUP BY ?productVersie
-    }
-  
-  	OPTIONAL {
-    	?productVersie schema:contactPoint [
-        	foaf:page ?website ;
-         	schema:email ?email ;
-          	schema:telephone ?telefoon
-    	]
-  	}
-  
-    OPTIONAL {
-    	?productVersie schema:additionalType/dcterms:isVersionOf ?type .
-    	?type skos:prefLabel ?typeLabel .
-    	FILTER (lang(?typeLabel) = 'nl')
-    }
+      OPTIONAL {
+          ?product prov:generatedAtTime ?wijzigingsdatum .
+      }
 
-    OPTIONAL {
-      ?productVersie westtoerns:Product.status/dcterms:isVersionOf/skos:prefLabel ?status .
-      FILTER (lang(?status) = 'nl')
-    }
-	
-  	OPTIONAL {
-    	?productVersie locn:geometry [
-        	wgs84:lat ?lat ;
-        	wgs84:long ?long 
-    	] .
-  	}
-  
-    OPTIONAL {
-        ?productVersie schema:name ?naam .
-        FILTER (lang(?naam) = 'nl')
-    }
-  
-  	OPTIONAL {
-        ?productVersie schema:description ?beschrijving .
-        FILTER (lang(?beschrijving) = 'nl')
-    }
+      OPTIONAL {
+          ?product schema:amenityFeature [
+              schema:name ?faciliteit
+          ]
+      }
 
-    OPTIONAL {
-        ?productVersie locn:address [
-        locn:thoroughfare ?straatnaam ;
-        adres:Adresvoorstelling.huisnummer ?huisnummer ;
-        locn:postCode ?postcode ;
-        adres:gemeentenaam ?gemeente ;
-        westtoerns:gemeenteniscode ?niscode ;
-        ] .
-    }
-    OPTIONAL {
-        ?productVersie locn:address [
-        adres:Adresvoorstelling.busnummer ?busnummer
-        ] .
-    }
-    OPTIONAL {
-        ?productVersie locn:address [
-        	locn:adminUnitL2 ?provincie
-        ] .
-    	FILTER (lang(?provincie) = "nl")
-    }
+      OPTIONAL {
+        SELECT DISTINCT ?product (group_concat(?faciliteit;separator=', ') as ?faciliteiten)
+           WHERE {
+             ?product schema:amenityFeature [
+                  schema:name ?faciliteit
+              ]
+         FILTER(lang(?faciliteit) = 'nl')
+           } 
+            GROUP BY ?product
+      }
 
-    OPTIONAL {
-        ?productVersie logies:behoortTotToeristischeRegio ?toeristischeregio .
-		?toeristischeregio dcterms:isVersionOf/owl:sameAs ?toeristischeregioTVL .
-	    BIND (str(?toeristischeregioTVL) as ?toeristischeregioTVLId) .
-    	?toeristischeregio skos:prefLabel ?toeristischeregioLabel .
-        FILTER (lang(?toeristischeregioLabel) = 'nl')
-    }
+      OPTIONAL {
+          ?product schema:contactPoint [
+              foaf:page ?website ;
+              schema:email ?email ;
+              schema:telephone ?telefoon
+          ]
+      }
 
-  # Filter op WinId
-  # FILTER (str(?winId) = "1000309")
-  
-   # Enkel producttypes onder "Logies"
-  #?parentType skos:prefLabel "Logies"@nl ;
-  #           skos:narrower+ ?type .
-  
-  # Enkel producttypes onder "Eet- en drinkgelegenheden"
-  #?parentType skos:prefLabel "Eet- en drinkgelegenheden"@nl ;
-  #           skos:narrower+ ?type .
-  
-  # Enkel producttypes onder "MICE"
-  #?parentType skos:prefLabel "MICE"@nl ;
-  #           skos:narrower+ ?type .
-  
-  # Enkel producttypes onder "Permanent Aanbod"
-  #?parentType skos:prefLabel "Permanent Aanbod"@nl ;
-  #           skos:narrower+ ?type .
-  
-  # Enkel producttypes onder "Tijdelijk aanbod"
-  #?parentType skos:prefLabel "Tijdelijk aanbod"@nl ;
-  #           skos:narrower+ ?type .
-  
-  # Wijzingen sedert timestamp
-  # FILTER (?wijzigingsdatum >= "2024-02-05T18:07:52Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
+      OPTIONAL {
+          ?product schema:additionalType/dcterms:isVersionOf ?type .
+          ?type skos:prefLabel ?typeLabel .
+          FILTER (lang(?typeLabel) = 'nl')
+      }
+
+      OPTIONAL {
+        ?product westtoerns:Product.status/dcterms:isVersionOf/skos:prefLabel ?status .
+        FILTER (lang(?status) = 'nl')
+      }
+
+      OPTIONAL {
+          ?product locn:geometry [
+              wgs84:lat ?lat ;
+              wgs84:long ?long 
+          ] .
+      }
+
+      OPTIONAL {
+          ?product schema:name ?naam .
+          FILTER (lang(?naam) = 'nl')
+      }
+
+      OPTIONAL {
+          ?product schema:description ?beschrijving .
+          FILTER (lang(?beschrijving) = 'nl')
+      }
+
+      OPTIONAL {
+          ?product locn:address [
+          locn:thoroughfare ?straatnaam ;
+          adres:Adresvoorstelling.huisnummer ?huisnummer ;
+          locn:postCode ?postcode ;
+          adres:gemeentenaam ?gemeente ;
+          westtoerns:gemeenteniscode ?niscode ;
+          ] .
+      }
+      OPTIONAL {
+          ?product locn:address [
+          adres:Adresvoorstelling.busnummer ?busnummer
+          ] .
+      }
+      OPTIONAL {
+          ?product locn:address [
+              locn:adminUnitL2 ?provincie
+          ] .
+          FILTER (lang(?provincie) = "nl")
+      }
+
+      OPTIONAL {
+          ?product logies:behoortTotToeristischeRegio ?toeristischeregio .
+          ?toeristischeregio dcterms:isVersionOf/owl:sameAs ?toeristischeregioTVL .
+          BIND (str(?toeristischeregioTVL) as ?toeristischeregioTVLId) .
+          ?toeristischeregio skos:prefLabel ?toeristischeregioLabel .
+          FILTER (lang(?toeristischeregioLabel) = 'nl')
+      }
+
+    # Filter op WinId
+    # FILTER (str(?winId) = "1000309")
+
+     # Enkel producttypes onder "Logies"
+    #?parentType skos:prefLabel "Logies"@nl ;
+    #           skos:narrower+ ?type .
+
+    # Enkel producttypes onder "Eet- en drinkgelegenheden"
+    #?parentType skos:prefLabel "Eet- en drinkgelegenheden"@nl ;
+    #           skos:narrower+ ?type .
+
+    # Enkel producttypes onder "MICE"
+    #?parentType skos:prefLabel "MICE"@nl ;
+    #           skos:narrower+ ?type .
+
+    # Enkel producttypes onder "Permanent Aanbod"
+    #?parentType skos:prefLabel "Permanent Aanbod"@nl ;
+    #           skos:narrower+ ?type .
+
+    # Enkel producttypes onder "Tijdelijk aanbod"
+    #?parentType skos:prefLabel "Tijdelijk aanbod"@nl ;
+    #           skos:narrower+ ?type .
+
+    # Wijzingen sedert timestamp
+    # FILTER (?wijzigingsdatum >= "2024-02-05T18:07:52Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
+  }
 }
 ```
 
@@ -205,21 +207,24 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
 CONSTRUCT {
-  ?productVersie ?p ?o .
+  ?product ?p ?o .
   ?o ?p2 ?o2 .
   ?o2 ?p3 ?o3 .
 } WHERE {
-  ?productVersie ?p ?o ;
-    		dcterms:isVersionOf ?product .
-  OPTIONAL {
-  ?o ?p2 ?o2 .
+  GRAPH <urn:x-arq:DefaultGraph> {
+    ?product ?p ?o ;
+   		adms:identifier [ skos:notation ?winId ]
+
     OPTIONAL {
-    ?o2 ?p3 ?o3 .
+    ?o ?p2 ?o2 .
+      OPTIONAL {
+      ?o2 ?p3 ?o3 .
+      }
     }
+    VALUES ?winId { "1029472"^^<https://westtoer.be/id/concept/identificatiesysteem/win> }
+    # Of met product URI: 
+    # VALUES ?product { <https://westtoer.be/id/product/f04a019e-ba7e-455c-89df-36516bdb1a40> }
   }
-  VALUES ?product { <https://westtoer.be/id/product/76ec83f9-6dfb-4039-9eb7-701da08efbfd> }
-  # Of met versie:
-  # VALUES ?productVersie { <https://westtoer.be/id/product/76ec83f9-6dfb-4039-9eb7-701da08efbfd/2023-11-23T12:46:11.6388872Z> }
 }
 ```
 
@@ -231,7 +236,7 @@ Stap 1: pas Content Type (GRAPH) aan naar "JSON-LD"
 In code betekent dit dat een HTTP request met "Content-Type": "application/ld+json" wordt verstuurd naar het SPARQL endpoint.
 
 In code betekent dit dat je een [SPARQL request](https://www.w3.org/TR/sparql11-protocol/) moet sturen naar "http://localhost:3030/ds/sparql".
-Hier zie je een [voorbeeld](https://query.linkeddatafragments.org/#datasources=http%3A%2F%2Flocalhost%3A3030%2Fds%2Fsparql&query=SELECT%20%3Fs%20%3Fp%20%3Fo%0AWHERE%20%7B%0A%20%20%20%3Fs%20%3Fp%20%3Fo%20.%20%0A%7D%0ALIMIT%2010) in de Comunica client.
+Hier zie je een [voorbeeld](https://query.linkeddatafragments.org/#datasources=http%3A%2F%2Flocalhost%3A3030%2Fds%2Fsparql&query=SELECT%20%3Fs%20%3Fp%20%3Fo%0AWHERE%20%7B%0A%20%20GRAPH%20%3Curn%3Ax-arq%3ADefaultGraph%3E%20%7B%0A%20%20%20%09%3Fs%20%3Fp%20%3Fo%20.%20%0A%20%20%7D%0A%7D%0ALIMIT%2010) in de Comunica client.
  
 Stap 2: frame het JSON-LD object in de JSON-LD playground
 Klik op de tab "Framed"
@@ -260,22 +265,24 @@ in plaats van een VALUES block te gebruiken, voegen we een SELECT query (zoals e
 Dit ziet er ruwweg zo uit:
 ```
 CONSTRUCT {
-  ?productVersie ?p ?o .
+  ?product ?p ?o .
   ?o ?p2 ?o2 .
   ?o2 ?p3 ?o3 .
 } WHERE {
-  ### SELECT in plaats van VALUES
-  {
-    SELECT DISTINCT ?productVersie
-    WHERE { ... }
-  }
-  ###
+  GRAPH <urn:x-arq:DefaultGraph> {
+    ### SELECT in plaats van VALUES
+    {
+      SELECT DISTINCT ?product
+      WHERE { ... }
+    }
+    ###
 
-  ?productVersie ?p ?o .
-  OPTIONAL {
-  ?o ?p2 ?o2 .
+    ?product ?p ?o .
     OPTIONAL {
-    ?o2 ?p3 ?o3 .
+    ?o ?p2 ?o2 .
+      OPTIONAL {
+      ?o2 ?p3 ?o3 .
+      }
     }
   }
 }
@@ -303,42 +310,43 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
 CONSTRUCT {
-  ?productVersie ?p ?o .
+  ?product ?p ?o .
   ?o ?p2 ?o2 .
   ?o2 ?p3 ?o3 .
 }
 WHERE {
+  GRAPH <urn:x-arq:DefaultGraph> {
   {
     SELECT DISTINCT ?productVersie
     WHERE {
-      ?productVersie a schema:TouristAttraction .
+      ?product a schema:TouristAttraction .
 
       OPTIONAL {
-        ?productVersie adms:identifier [ skos:notation ?winId ]
+        ?product adms:identifier [ skos:notation ?winId ]
       }
 
       OPTIONAL {
-        ?productVersie prov:generatedAtTime ?wijzigingsdatum .
+        ?product prov:generatedAtTime ?wijzigingsdatum .
       }
 
       OPTIONAL {
-        ?productVersie schema:amenityFeature [
+        ?product schema:amenityFeature [
             schema:name ?faciliteit
         ]
       }
 
       OPTIONAL {
-        SELECT DISTINCT ?productVersie (group_concat(?faciliteit;separator=', ') as ?faciliteiten)
+        SELECT DISTINCT ?product (group_concat(?faciliteit;separator=', ') as ?faciliteiten)
         WHERE {
-          ?productVersie schema:amenityFeature [
+          ?product schema:amenityFeature [
               schema:name ?faciliteit
           ]
         } 
-        GROUP BY ?productVersie
+        GROUP BY ?product
       }
 
       OPTIONAL {
-        ?productVersie schema:contactPoint [
+        ?product schema:contactPoint [
             foaf:page ?website ;
             schema:email ?email ;
             schema:telephone ?telefoon
@@ -346,35 +354,35 @@ WHERE {
       }
 
       OPTIONAL {
-        ?productVersie schema:additionalType/dcterms:isVersionOf ?type .
+        ?product schema:additionalType/dcterms:isVersionOf ?type .
         ?type skos:prefLabel ?typeLabel .
         FILTER (lang(?typeLabel) = 'nl')
       }
 
       OPTIONAL {
-        ?productVersie westtoerns:Product.status/dcterms:isVersionOf/skos:prefLabel ?status .
+        ?product westtoerns:Product.status/dcterms:isVersionOf/skos:prefLabel ?status .
         FILTER (lang(?status) = 'nl')
       }
 
       OPTIONAL {
-        ?productVersie locn:geometry [
+        ?product locn:geometry [
             wgs84:lat ?lat ;
             wgs84:long ?long 
         ] .
       }
 
       OPTIONAL {
-        ?productVersie schema:name ?naam .
+        ?product schema:name ?naam .
         FILTER (lang(?naam) = 'nl')
       }
 
       OPTIONAL {
-        ?productVersie schema:description ?beschrijving .
+        ?product schema:description ?beschrijving .
         FILTER (lang(?beschrijving) = 'nl')
       }
 
       OPTIONAL {
-        ?productVersie locn:address [
+        ?product locn:address [
             locn:thoroughfare ?straatnaam ;
             adres:Adresvoorstelling.huisnummer ?huisnummer ;
             locn:postCode ?postcode ;
@@ -383,19 +391,19 @@ WHERE {
             ] .
       }
       OPTIONAL {
-        ?productVersie locn:address [
+        ?product locn:address [
             adres:Adresvoorstelling.busnummer ?busnummer
         ] .
       }
       OPTIONAL {
-        ?productVersie locn:address [
+        ?product locn:address [
             locn:adminUnitL2 ?provincie
         ] .
         FILTER (lang(?provincie) = "nl")
       }
 
       OPTIONAL {
-        ?productVersie logies:behoortTotToeristischeRegio ?toeristischeregio .
+        ?product logies:behoortTotToeristischeRegio ?toeristischeregio .
         ?toeristischeregio dcterms:isVersionOf/owl:sameAs ?toeristischeregioTVL .
         BIND (str(?toeristischeregioTVL) as ?toeristischeregioTVLId) .
         ?toeristischeregio skos:prefLabel ?toeristischeregioLabel .
@@ -413,12 +421,13 @@ WHERE {
     OFFSET 0
   }
   
-  ?productVersie ?p ?o .
+  ?product ?p ?o .
   OPTIONAL {
     ?o ?p2 ?o2 .
     OPTIONAL {
       ?o2 ?p3 ?o3 .
     }
+  }
   }
 }
 ```
@@ -440,38 +449,26 @@ PREFIX westtoerns: <https://westtoer.be/ns#>
 PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
+SELECT DISTINCT ?productlist ?wijzigingsdatum ?name ?description ?product 
+WHERE {
+  GRAPH <urn:x-arq:DefaultGraph> {
+    ?productlist a dcmitype:Collection ;
+    	prov:generatedAtTime ?wijzigingsdatum .
+     # geef niet samengestelde producten terug (zijn zowel een collectie als tourist attraction)
+   	FILTER NOT EXISTS { ?productlist a schema:TouristAttraction . }
 
-SELECT DISTINCT ?productlist ?productlistVersie ?latestGeneratedAtTime ?name ?description ?product WHERE {
-  ?productlistVersie prov:generatedAtTime ?latestGeneratedAtTime ;
-                     dcterms:isVersionOf ?productlist .
-
-  OPTIONAL {
-    ?productlistVersie schema:name ?name .
-    FILTER (lang(?name) = "nl")
-  }
-
-  OPTIONAL {
-    ?productlistVersie schema:description ?description .
-    FILTER (lang(?description) = "nl")
-  }
-  OPTIONAL {
-    ?productlistVersie dcterms:hasPart ?product .
-  }
-  {
-    # Get latest version timestamp (generatedAtTime) for every productlist
-    SELECT ?productlist (MAX(?generatedAtTime) as ?latestGeneratedAtTime)
-    WHERE {
-      ?productlistVersie a dcmitype:Collection ;
-             dcterms:isVersionOf ?productlist ;
-             prov:generatedAtTime ?generatedAtTime .
-      # geef niet samengestelde producten terug (zijn zowel een collectie als tourist attraction)
-      FILTER NOT EXISTS { ?productlistVersie a schema:TouristAttraction . }
+    OPTIONAL {
+      ?productlist schema:name ?name .
+      FILTER (lang(?name) = "nl")
     }
-    GROUP BY ?productlist
-    
-    # Paginering is nodig wanneer er teveel lijsten zijn om in 1 HTTP response te steken
-    # LIMIT 50
-    # OFFSET 0
+
+    OPTIONAL {
+      ?productlist schema:description ?description .
+      FILTER (lang(?description) = "nl")
+    }
+    OPTIONAL {
+      ?productlist dcterms:hasPart ?product .
+    }
   }
 }
 ```
