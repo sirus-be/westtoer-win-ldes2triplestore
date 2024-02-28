@@ -161,13 +161,15 @@ Opmerkingen:
 ## Monitoring
 
 Het kan even duren vooraleer alle productversie's uit de LDES gesynchronizeerd zijn met de lokale triplestore.
-Om te checken of alles goed binnenstroomt / geen versie's meer binnenkomen, kan volgende COUNT query gebruikt worden:
+Om te checken of alles goed binnenstroomt / geen nieuwe producten meer binnenkomen, kan volgende COUNT query gebruikt worden:
 ```
 PREFIX schema: <https://schema.org/>
 
-SELECT (count(distinct ?productVersie) as ?c)
+SELECT (count(distinct ?product) as ?c)
 WHERE {
-    ?productVersie a schema:TouristAttraction .
+  GRAPH <urn:x-arq:DefaultGraph> {
+    ?product a schema:TouristAttraction .
+  }
 }
 ```
 
