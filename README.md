@@ -2,6 +2,13 @@
 
 `docker-compose up`
 
+Om een clean heropstart te doen, doe:
+
+```
+docker-compose down -v
+docker-compose up
+```
+
 ## Overzicht van producten
 
 Ga naar `http://localhost:3030/#/dataset/ds/query`
