@@ -5,7 +5,7 @@ services:
     ports:
       - 8081:8080
     volumes:
-      - ./ldio-ldes2triplestore-2.0.yml:/ldio/application.yml:ro
+      - ./ldio-ldes2triplestore.yml:/ldio/application.yml:ro
     networks:
       - ldes
     depends_on:
