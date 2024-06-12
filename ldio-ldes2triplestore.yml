@@ -1,31 +1,37 @@
 orchestrator:
   pipelines:
     - name: touristattractions
-      description: "This pipeline will take the latest version products from Westtoer, and send to an LDES server"
+      description: "This pipeline will take members from IMJV, and send to an LDES server"
       input:
-        name: be.vlaanderen.informatievlaanderen.ldes.ldi.client.LdioLdesClient
+        name: Ldio:LdesClient
         config:
-          url: https://ca-westtoer-ldes.bluesea-b3dcdb70.westeurope.azurecontainerapps.io/touristattractions
+          urls:
+            - https://ca-westtoer-ldes.bluesea-b3dcdb70.westeurope.azurecontainerapps.io/touristattractions
           sourceFormat: text/turtle
+          keep-state: true
+          state: sqlite
+          sqlite:
+            directory: touristattractions
+          materialisation:
+            enabled: false
           retries:
             enabled: true
-          state: file
-          keep-state: true
-          timestamp-path: http://www.w3.org/ns/prov#generatedAtTime
-      transformers:
-        - name: be.vlaanderen.informatievlaanderen.ldes.ldi.VersionMaterialiser
-          config:
-            versionOf-property: http://purl.org/dc/terms/isVersionOf
+            max: 10
+            statuses-to-retry: 403
       outputs:
-        - name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
-        - name: be.vlaanderen.informatievlaanderen.ldes.ldi.RepositoryMaterialiser
+        - name: Ldio:ConsoleOut
+          config:
+            rdf-writer:
+              content-type: application/n-quads
+        - name: Ldio:RepositoryMaterialiser
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
             repository-id: jena
+            batch-size: 10
     - name: taxonomies
       description: "This pipeline will fetch the product types and tree taxonomies."
       input:
-        name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioHttpInPoller
+        name: Ldio:HttpInPoller
         config:
           url:
             - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/producttypes.jsonld
@@ -33,10 +39,11 @@ orchestrator:
             - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/toeristische-regios.jsonld
           cron: "*/60 * * * * *"
         adapter:
-            name: be.vlaanderen.informatievlaanderen.ldes.ldi.RdfAdapter
+            name: Ldio:RdfAdapter
       outputs:
-        - name: be.vlaanderen.informatievlaanderen.ldes.ldio.LdioConsoleOut
-        - name: be.vlaanderen.informatievlaanderen.ldes.ldi.RepositoryMaterialiser
+        - name: Ldio:ConsoleOut
+        - name: Ldio:RepositoryMaterialiser
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
             repository-id: jena
+            batch-timeout: 10000
