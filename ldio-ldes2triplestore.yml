@@ -13,7 +13,7 @@ orchestrator:
           sqlite:
             directory: touristattractions
           materialisation:
-            enabled: false
+            enabled: true
           retries:
             enabled: true
             max: 10
