@@ -176,6 +176,9 @@ WHERE {
 
     # Wijzingen sedert timestamp
     # FILTER (?wijzigingsdatum >= "2024-02-05T18:07:52Z"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
+
+    # Filteren op NIScode
+    # FILTER(?niscode = 35013)
   }
 }
 LIMIT 500
