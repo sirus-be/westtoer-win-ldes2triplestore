@@ -17,17 +17,18 @@ orchestrator:
           retries:
             enabled: true
             max: 10
-            statuses-to-retry: 403
+            statuses-to-retry: 403, 404
       outputs:
         - name: Ldio:ConsoleOut
           config:
             rdf-writer:
               content-type: application/n-quads
-        - name: Ldio:RepositoryMaterialiser
+        - name: Ldio:RepositorySink
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
             repository-id: jena
-            batch-size: 10
+            named-graph: urn:x-arq:DefaultGraph
+            batch-size: 1
     - name: taxonomies
       description: "This pipeline will fetch the product types and tree taxonomies."
       input:
@@ -42,8 +43,9 @@ orchestrator:
             name: Ldio:RdfAdapter
       outputs:
         - name: Ldio:ConsoleOut
-        - name: Ldio:RepositoryMaterialiser
+        - name: Ldio:RepositorySink
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
             repository-id: jena
+            named-graph: urn:x-arq:DefaultGraph
             batch-timeout: 10000
