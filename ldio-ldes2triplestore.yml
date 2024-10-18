@@ -18,6 +18,41 @@ orchestrator:
             enabled: true
             max: 10
             statuses-to-retry: 403, 404
+      transformers:
+        - name: "Ldio:SparqlConstructTransformer"
+          config:
+            query: "
+            PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
+            PREFIX schema: <https://schema.org/>
+ 
+            construct {
+              ?product ?p ?oNotBlank .
+              ?oNotBlank ?p2 ?o2NotBlank .
+              ?o2NotBlank ?p3 ?o3NotBlank .
+            }
+            where {
+              {
+                ?product a dcmitype:Collection .
+              }
+              UNION
+              {
+                ?product a schema:TouristAttraction .
+              }
+ 
+              ?product ?p ?o .
+              OPTIONAL {
+                ?o ?p2 ?o2 .
+                OPTIONAL {
+                  ?o2 ?p3 ?o3 .
+                }
+              }
+            
+              BIND('https://westtoer.be/id/.well-known/genid/' as ?skolemBase)
+              BIND(if(isBlank(?o) && !isLiteral(?o), URI(concat(?skolemBase, md5(concat(str(?product), str(?o))))), ?o) as ?oNotBlank)
+              BIND(if(isBlank(?o2) && !isLiteral(?o2), URI(concat(?skolemBase, md5(concat(str(?product), str(?o2))))), ?o2) as ?o2NotBlank)
+              BIND(if(isBlank(?o3) && !isLiteral(?o3), URI(concat(?skolemBase, md5(concat(str(?product), str(?o3))))), ?o3) as ?o3NotBlank)
+            }
+            "
       outputs:
         - name: Ldio:ConsoleOut
           config:
