@@ -155,6 +155,9 @@ WHERE {
     # Filter op WinId
     # FILTER (str(?winId) = "1000309")
 
+    # Filter op productstatus
+    # FILTER (str(?status) = "Goedgekeurd")
+
      # Enkel producttypes onder "Logies"
     #?parentType skos:prefLabel "Logies"@nl ;
     #           skos:narrower+ ?type .
