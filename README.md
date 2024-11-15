@@ -34,7 +34,7 @@ PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId
 WHERE {
     GRAPH <urn:x-arq:DefaultGraph> {
       ?product a schema:TouristAttraction .
@@ -156,6 +156,21 @@ WHERE {
           BIND(replace(str(?toeristischeregio), 'https://westtoer.be/id/toeristischeregio/', '') as ?toeristischeregioWesttoerId)
       }
 
+      OPTIONAL {
+          ?product schema:starRating ?beoordeling .
+          ?beoordeling schema:description ?beoordelingsBeschrijving .
+          FILTER(lang(?beoordelingsBeschrijving) = 'nl')
+          OPTIONAL {
+            ?beoordeling schema:worstRating ?laagsteBeoordeling .
+          }
+          OPTIONAL {
+            ?beoordeling schema:bestRating ?hoogsteBeoordeling .
+          }
+          OPTIONAL {
+            ?beoordeling schema:ratingValue ?beoordelingsId .
+          }
+      }
+        
     # Filter op WinId
     # FILTER (str(?winId) = "1000309")
 
