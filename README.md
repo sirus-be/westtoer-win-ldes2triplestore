@@ -34,7 +34,7 @@ PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt
 WHERE {
     GRAPH <urn:x-arq:DefaultGraph> {
       ?product a schema:TouristAttraction .
@@ -103,6 +103,8 @@ WHERE {
       OPTIONAL {
         ?product westtoerns:Product.status/skos:prefLabel ?status .
         FILTER (lang(?status) = 'nl')
+        ?product westtoerns:Product.status ?statusUri .
+    	BIND(replace(str(?statusUri), 'https://westtoer.be/id/concepts/', '') as ?statusId)
       }
 
       OPTIONAL {
@@ -159,6 +161,7 @@ WHERE {
 
     # Filter op productstatus
     # FILTER (str(?status) = "Goedgekeurd")
+    # FILTER (str(?statusId) = "f6c056f4-5db9-4030-a1f5-7727cd475715")
 
     # Filter op regio
     # FILTER (str(?toeristischeregioWesttoerId) = "158cd294-810e-4211-9a2d-5dcb799d0554")
