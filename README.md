@@ -18,6 +18,7 @@ Voorbeeld-query:
 ```
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
 PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
