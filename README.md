@@ -35,7 +35,7 @@ PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId ?hoogteRuimte ?oppervlakteRuimte ?indelingCapaciteit ?indelingTypeId
 WHERE {
     GRAPH <urn:x-arq:DefaultGraph> {
       ?product a schema:TouristAttraction .
@@ -174,8 +174,19 @@ WHERE {
 
      OPTIONAL {
         ?product westtoerns:heeftRuimte ?ruimte .
-      	?ruimte schema:floorSize/schema:value ?oppervlakteRuimte .
-        ?ruimte schema:height/schema:value ?hoogteRuimte .
+        OPTIONAL {
+      		?ruimte schema:floorSize/schema:value ?oppervlakteRuimte .
+        }
+        OPTIONAL {
+        	?ruimte schema:height/schema:value ?hoogteRuimte .
+        }
+        OPTIONAL {
+        	?ruimte datatourism:hasLayout ?indeling .
+            ?indeling westtoerns:indelingBeschikbaar true .
+        	?indeling dcterms:type ?indelingTypeUri .
+            BIND(replace(str(?indelingTypeUri), 'https://westtoer.be/id/concepts/', '') as ?indelingTypeId)
+			?indeling logies:capaciteit/schema:value ?indelingCapaciteit .            
+        }
      }
 
      OPTIONAL {
