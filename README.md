@@ -34,7 +34,7 @@ PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId
 WHERE {
     GRAPH <urn:x-arq:DefaultGraph> {
       ?product a schema:TouristAttraction .
@@ -195,7 +195,15 @@ WHERE {
 	  OPTIONAL {
 	    ?openinghoursSpecification schema:validThrough ?validThrough .
 	  }
-      }	
+      }
+
+    OPTIONAL {
+       ?product rdfs:seeAlso ?link .
+       ?link schema:additionalType ?linkTypeUri .
+       BIND(replace(str(?linkTypeUri), 'https://westtoer.be/id/concepts/', '') as ?linkTypeId)
+       ?link schema:url ?linkUrl .
+       BIND(str(?linkUrl) as ?linkUrlString)
+    }
         
     # Filter op WinId
     # FILTER (str(?winId) = "1000309")
@@ -206,6 +214,9 @@ WHERE {
 
     # Filter op regio
     # FILTER (str(?toeristischeregioWesttoerId) = "158cd294-810e-4211-9a2d-5dcb799d0554")
+
+    # Filter op links om te boeken
+    # FILTER (?linkTypeId = "343d08a7-f435-427a-8ef6-c2bd6187c856")
 
      # Enkel producttypes onder "Logies"
     #?parentType skos:prefLabel "Logies"@nl ;
