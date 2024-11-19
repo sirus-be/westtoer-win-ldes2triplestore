@@ -88,10 +88,10 @@ WHERE {
       	  BIND(replace(str(?type), 'https://westtoer.be/id/concept/producttype/', '') as ?typeId)
 
      	  # Retrieve id of root type, e.g. 2e577149-7520-450a-9de6-824cd5d8f652 for "Tijdelijk aanbod"	
-          ?rootParentType skos:narrower+ ?type .
-          BIND(replace(str(?rootParentType), 'https://westtoer.be/id/concept/producttype/', '') as ?rootParentTypeId)
+          ?rootType skos:narrower+ ?type .
+          BIND(replace(str(?rootType), 'https://westtoer.be/id/concept/producttype/', '') as ?rootTypeId)
           FILTER NOT EXISTS {
-      	    ?parentOfRootParentType skos:narrower ?rootParentType .
+      	    ?parentOfRootParentType skos:narrower ?rootType .
           }
       }
     
