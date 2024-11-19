@@ -36,7 +36,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX datatourism: <https://www.datatourisme.fr/ontology/core#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId ?hoogteRuimte ?oppervlakteRuimte ?indelingCapaciteit ?indelingTypeId
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?rootTypeId ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId ?hoogteRuimte ?oppervlakteRuimte ?indelingCapaciteit ?indelingTypeId
 WHERE {
     GRAPH <urn:x-arq:DefaultGraph> {
       ?product a schema:TouristAttraction .
@@ -90,6 +90,13 @@ WHERE {
           ?type skos:prefLabel ?typeLabel .
           FILTER (lang(?typeLabel) = 'nl')
       	  BIND(replace(str(?type), 'https://westtoer.be/id/concept/producttype/', '') as ?typeId)
+      }
+
+      # Retrieve id of root type, e.g. 2e577149-7520-450a-9de6-824cd5d8f652 for "Tijdelijk aanbod"	
+      ?rootParentType skos:narrower+ ?type .
+      BIND(replace(str(?rootParentType), 'https://westtoer.be/id/concept/producttype/', '') as ?rootParentTypeId)
+      FILTER NOT EXISTS {
+      	?parentOfRootParentType skos:narrower ?rootParentType .
       }
     
       OPTIONAL {
