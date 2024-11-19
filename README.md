@@ -41,13 +41,9 @@ WHERE {
     GRAPH <urn:x-arq:DefaultGraph> {
       ?product a schema:TouristAttraction .
 
-      OPTIONAL {
-          ?product adms:identifier [ skos:notation ?winId ]
-      }
+      ?product adms:identifier [ skos:notation ?winId ] .
 
-      OPTIONAL {
-          ?product prov:generatedAtTime ?wijzigingsdatum .
-      }
+      ?product prov:generatedAtTime ?wijzigingsdatum .
 
       OPTIONAL {
       	  ?product logies:heeftMedia/schema:contentUrl ?afbeeldingURL .
@@ -90,13 +86,13 @@ WHERE {
           ?type skos:prefLabel ?typeLabel .
           FILTER (lang(?typeLabel) = 'nl')
       	  BIND(replace(str(?type), 'https://westtoer.be/id/concept/producttype/', '') as ?typeId)
-      }
 
-      # Retrieve id of root type, e.g. 2e577149-7520-450a-9de6-824cd5d8f652 for "Tijdelijk aanbod"	
-      ?rootParentType skos:narrower+ ?type .
-      BIND(replace(str(?rootParentType), 'https://westtoer.be/id/concept/producttype/', '') as ?rootParentTypeId)
-      FILTER NOT EXISTS {
-      	?parentOfRootParentType skos:narrower ?rootParentType .
+     	  # Retrieve id of root type, e.g. 2e577149-7520-450a-9de6-824cd5d8f652 for "Tijdelijk aanbod"	
+          ?rootParentType skos:narrower+ ?type .
+          BIND(replace(str(?rootParentType), 'https://westtoer.be/id/concept/producttype/', '') as ?rootParentTypeId)
+          FILTER NOT EXISTS {
+      	    ?parentOfRootParentType skos:narrower ?rootParentType .
+          }
       }
     
       OPTIONAL {
@@ -109,12 +105,10 @@ WHERE {
               GROUP BY ?product
         }
 
-      OPTIONAL {
-        ?product westtoerns:Product.status/skos:prefLabel ?status .
-        FILTER (lang(?status) = 'nl')
-        ?product westtoerns:Product.status ?statusUri .
-    	BIND(replace(str(?statusUri), 'https://westtoer.be/id/concepts/', '') as ?statusId)
-      }
+      ?product westtoerns:Product.status/skos:prefLabel ?status .
+      FILTER (lang(?status) = 'nl')
+      ?product westtoerns:Product.status ?statusUri .
+      BIND(replace(str(?statusUri), 'https://westtoer.be/id/concepts/', '') as ?statusId)
 
       OPTIONAL {
           ?product locn:geometry [
