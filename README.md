@@ -34,6 +34,7 @@ PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
 PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX datatourism: <https://www.datatourisme.fr/ontology/core#>
 
 SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId ?hoogteRuimte ?oppervlakteRuimte ?indelingCapaciteit ?indelingTypeId
 WHERE {
