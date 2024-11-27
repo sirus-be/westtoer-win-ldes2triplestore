@@ -1,7 +1,7 @@
 services:
   ldio-workbench:
     container_name: westtoer_ldes2triplestore_ldio-workbench
-    image: ldes/ldi-orchestrator:2.9.0-SNAPSHOT
+    image: ldes/ldi-orchestrator:2.10.0-SNAPSHOT
     ports:
       - 8081:8080
     volumes:
