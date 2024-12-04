@@ -30,6 +30,7 @@ orchestrator:
               ?oNotBlank ?p2 ?o2NotBlank .
               ?o2NotBlank ?p3 ?o3NotBlank .
               ?o3NotBlank ?p4 ?o4NotBlank .
+              ?o5NotBlank ?p5 ?o6NotBlank .
             }
             where {
               {
@@ -47,6 +48,9 @@ orchestrator:
                   ?o2 ?p3 ?o3 .
                   OPTIONAL {
                     ?o3 ?p4 ?o4 .
+                    OPTIONAL {
+                      ?o4 ?p5 ?o5 .
+                    }
                   }
                 }
               }
@@ -56,6 +60,7 @@ orchestrator:
               BIND(if(isBlank(?o2) && !isLiteral(?o2), URI(concat(?skolemBase, md5(concat(str(?product), str(?o2))))), ?o2) as ?o2NotBlank)
               BIND(if(isBlank(?o3) && !isLiteral(?o3), URI(concat(?skolemBase, md5(concat(str(?product), str(?o3))))), ?o3) as ?o3NotBlank)
               BIND(if(isBlank(?o4) && !isLiteral(?o4), URI(concat(?skolemBase, md5(concat(str(?product), str(?o4))))), ?o4) as ?o4NotBlank)
+              BIND(if(isBlank(?o5) && !isLiteral(?o5), URI(concat(?skolemBase, md5(concat(str(?product), str(?o5))))), ?o5) as ?o5NotBlank)
             }
             "
       outputs:
