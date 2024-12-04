@@ -30,7 +30,7 @@ orchestrator:
               ?oNotBlank ?p2 ?o2NotBlank .
               ?o2NotBlank ?p3 ?o3NotBlank .
               ?o3NotBlank ?p4 ?o4NotBlank .
-              ?o5NotBlank ?p5 ?o6NotBlank .
+              ?o4NotBlank ?p5 ?o5NotBlank .
             }
             where {
               {
