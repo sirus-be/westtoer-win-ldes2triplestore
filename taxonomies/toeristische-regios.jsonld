@@ -1,6 +1,6 @@
 {
     "@context": {
-        "@base": "https://westtoer.be/id/toeristischeregio/",
+        "@base": "https://data.westtoer.be/id/toeristischeregio/",
         "id": "@id",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "label": {
