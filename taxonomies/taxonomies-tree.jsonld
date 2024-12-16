@@ -1,6 +1,6 @@
 {
     "@context": {
-        "@base": "https://westtoer.be/id/concepts/",
+        "@base": "https://data.westtoer.be/id/concepts/",
         "id": "@id",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "label": {
