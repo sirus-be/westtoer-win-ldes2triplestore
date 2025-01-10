@@ -55,7 +55,7 @@ orchestrator:
                 }
               }
             
-              BIND('https://westtoer.be/id/.well-known/genid/' as ?skolemBase)
+              BIND('https://data.westtoer.be/id/.well-known/genid/' as ?skolemBase)
               BIND(if(isBlank(?o) && !isLiteral(?o), URI(concat(?skolemBase, md5(concat(str(?product), str(?o))))), ?o) as ?oNotBlank)
               BIND(if(isBlank(?o2) && !isLiteral(?o2), URI(concat(?skolemBase, md5(concat(str(?product), str(?o2))))), ?o2) as ?o2NotBlank)
               BIND(if(isBlank(?o3) && !isLiteral(?o3), URI(concat(?skolemBase, md5(concat(str(?product), str(?o3))))), ?o3) as ?o3NotBlank)

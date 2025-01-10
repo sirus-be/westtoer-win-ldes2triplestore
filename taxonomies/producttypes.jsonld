@@ -1,7 +1,7 @@
 
 {
     "@context": {
-      "@base": "https://westtoer.be/id/concept/producttype/",
+      "@base": "https://data.westtoer.be/id/concept/producttype/",
       "id": "@id",
       "skos": "http://www.w3.org/2004/02/skos/core#",
       "labels": "skos:prefLabel",
