@@ -9,6 +9,15 @@ docker-compose down -v
 docker-compose up
 ```
 
+# Westtoer SPARQL endpoint
+
+Westtoer biedt een SPARQL endpoint aan (waarbij een API key nodig is).
+Onderstaande queries kunnen daar gebruikt worden, maar de named GRAPH moet aangepast worden.
+
+```
+Vervang `<urn:x-arq:DefaultGraph>` met `<http://mu.semte.ch/application>`.
+```
+
 ## Overzicht van producten
 
 Ga naar `http://localhost:3030/#/dataset/ds/query`
