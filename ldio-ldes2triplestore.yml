@@ -80,12 +80,54 @@ orchestrator:
         name: Ldio:HttpInPoller
         config:
           url:
-            - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/producttypes.jsonld
-            - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/taxonomies-tree.jsonld
+            - https://app-westtoerwin-prod.azurewebsites.net/api/v1/taxonomies/product-types
+            - https://app-westtoerwin-prod.azurewebsites.net/api/v1/taxonomies/tree
             - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/toeristische-regios.jsonld
           cron: "*/60 * * * * *"
         adapter:
-            name: Ldio:RdfAdapter
+          name: Ldio:JsonToLdAdapter
+          config:
+            context: |
+              {
+                "@context": {
+                  "@base": "https://data.westtoer.be/id/concepts/",
+                  "id": "@id",
+                  "skos": "http://www.w3.org/2004/02/skos/core#",
+                  "label": {
+                      "@id": "skos:prefLabel",
+                      "@language": "nl"
+                  },
+                  "items": "skos:narrower",
+                  "labelDutch": {
+                      "@id": "label",
+                      "@language": "nl"
+                  },
+                  "labelEnglish": {
+                      "@id": "label",
+                      "@language": "en"
+                  },
+                  "labelFrench": {
+                      "@id": "label",
+                      "@language": "fr"
+                  },
+                  "labelGerman": {
+                      "@id": "label",
+                      "@language": "de"
+                  }
+                }
+              }
+      transformers:
+        - name: "Ldio:SparqlConstructTransformer"
+          config:
+            query: "
+              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+              CONSTRUCT {
+                ?s ?p ?o .
+                ?s a skos:Concept .
+              } WHERE {
+                ?s ?p ?o .
+              }
+            "
       outputs:
         # - name: Ldio:ConsoleOut
         - name: Ldio:RepositorySink
