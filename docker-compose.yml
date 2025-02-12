@@ -58,7 +58,7 @@ services:
       fuseki:
         condition: "service_healthy"
     command: |
-      curl -X PUT 'http://rdf4j-server:8080/rdf4j-server/repositories/jena'
+      curl -X PUT 'http://rdf4j-server:8080/rdf4j-server/repositories/virtuoso'
       --header 'Content-Type: text/turtle'
       --data-raw '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
       @prefix rep: <http://www.openrdf.org/config/repository#>.
@@ -66,7 +66,7 @@ services:
       @prefix config: <tag:rdf4j.org,2023:config/>.
 
       [] a config:Repository ;
-        config:rep.id "jena" ;
+        config:rep.id "virtuoso" ;
         rdfs:label "SPARQL endpoint Jena" ;
         config:rep.impl [
             config:rep.type "openrdf:SPARQLRepository";
