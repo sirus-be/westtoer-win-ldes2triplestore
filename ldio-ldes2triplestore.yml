@@ -22,17 +22,41 @@ orchestrator:
         - name: "Ldio:SparqlConstructTransformer"
           config:
             query: "
+            
             PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
             PREFIX schema: <https://schema.org/>
- 
-            construct {
+            PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+            PREFIX generiek: <https://data.vlaanderen.be/ns/generiek#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX locn: <http://www.w3.org/ns/locn#>
+            PREFIX wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+            PREFIX adres: <https://data.vlaanderen.be/ns/adres#>
+            PREFIX westtoer: <https://data.westtoer.be/ns#>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX logies: <https://data.vlaanderen.be/ns/logies#>
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+            CONSTRUCT {
               ?product ?p ?oNotBlank .
+              ?product mu:uuid ?uuidNoDatatype .
+              ?oNotBlank a ?finalType .
               ?oNotBlank ?p2 ?o2NotBlank .
               ?o2NotBlank ?p3 ?o3NotBlank .
               ?o3NotBlank ?p4 ?o4NotBlank .
               ?o4NotBlank ?p5 ?o5NotBlank .
+              ?oNotBlank mu:uuid ?finalUuid .
+              ?o2NotBlank mu:uuid ?uuidGeneratedO2 .
+              ?oNotBlank westtoer:identifier ?notationString .
+              ?o2NotBlank schema:opens ?fixedOpens .
+              ?o2NotBlank schema:closes ?fixedCloses .
+
+              ?concept a skos:Concept ;
+                      mu:uuid ?conceptUuid .  
             }
-            where {
+            WHERE {
+            {
               {
                 ?product a dcmitype:Collection .
               }
@@ -40,28 +64,94 @@ orchestrator:
               {
                 ?product a schema:TouristAttraction .
               }
- 
+
               ?product ?p ?o .
+
+              OPTIONAL {
+                ?o rdf:type ?typeO .
+                BIND(STRUUID() AS ?uuidGenerated)
+                FILTER NOT EXISTS {
+                  ?o rdf:type logies:ToeristischeRegio .
+                }
+              }
+
+              OPTIONAL {
+                FILTER(?p = rdfs:seeAlso)
+                BIND(STRUUID() AS ?uuidGeneratedSeeAlso)
+                BIND(rdfs:Resource AS ?typeSeeAlso)
+                }
+
+              BIND(COALESCE(?uuidGenerated, ?uuidGeneratedSeeAlso) AS ?finalUuid)
+              BIND(COALESCE(?typeO, ?typeSeeAlso) AS ?finalType)
+
               OPTIONAL {
                 ?o ?p2 ?o2 .
+                FILTER NOT EXISTS {
+                  ?o rdf:type logies:ToeristischeRegio .
+                }
+
+                OPTIONAL {
+                    ?o2 rdf:type ?typeO2 .
+                    BIND(STRUUID() AS ?uuidGeneratedO2)
+                }
+
+                
+
                 OPTIONAL {
                   ?o2 ?p3 ?o3 .
+
+                  FILTER (?p3 != <https://schema.org/opens>)
+                  FILTER (?p3 != <https://schema.org/closes>)
+
+                  OPTIONAL {
+                    ?o2 schema:opens ?opens .
+                    ?o2 schema:closes ?closes .
+                    BIND(str(?opens) as ?fixedOpens)
+                    BIND(str(?closes) as ?fixedCloses)
+
+                  }
+
                   OPTIONAL {
                     ?o3 ?p4 ?o4 .
                     OPTIONAL {
-                      ?o4 ?p5 ?o5 .
+                        ?o4 ?p5 ?o5 .
                     }
                   }
                 }
               }
-            
+
+              OPTIONAL {
+                ?product generiek:lokaleIdentificator ?uuid .
+                BIND(STR(?uuid) AS ?uuidNoDatatype)
+              }
+
+              OPTIONAL {
+                ?o skos:notation ?notation .
+                BIND(STR(?notation) AS ?notationString)
+              }
+
+
+
               BIND('https://data.westtoer.be/id/.well-known/genid/' as ?skolemBase)
               BIND(if(isBlank(?o) && !isLiteral(?o), URI(concat(?skolemBase, md5(concat(str(?product), str(?o))))), ?o) as ?oNotBlank)
               BIND(if(isBlank(?o2) && !isLiteral(?o2), URI(concat(?skolemBase, md5(concat(str(?product), str(?o2))))), ?o2) as ?o2NotBlank)
               BIND(if(isBlank(?o3) && !isLiteral(?o3), URI(concat(?skolemBase, md5(concat(str(?product), str(?o3))))), ?o3) as ?o3NotBlank)
               BIND(if(isBlank(?o4) && !isLiteral(?o4), URI(concat(?skolemBase, md5(concat(str(?product), str(?o4))))), ?o4) as ?o4NotBlank)
-              BIND(if(isBlank(?o5) && !isLiteral(?o5), URI(concat(?skolemBase, md5(concat(str(?product), str(?o5))))), ?o5) as ?o5NotBlank)
+              BIND(IF(ISBLANK(?o5) && !ISLITERAL(?o5), URI(CONCAT(?skolemBase, MD5(CONCAT(STR(?product), STR(?o5))))), ?o5) AS ?o5NotBlank)
+
             }
+            UNION
+            {
+              ?concept skos:prefLabel ?prefLabel .
+              FILTER (!isBlank(?concept))
+              FILTER NOT EXISTS {
+                  ?concept rdf:type logies:ToeristischeRegio .
+              }
+              BIND(CONCAT('uuid-', SHA256(STR(?concept))) AS ?conceptUuid)
+
+            }
+          }
+
             "
       outputs:
         # - name: Ldio:ConsoleOut
@@ -71,18 +161,17 @@ orchestrator:
         - name: Ldio:RepositorySink
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
-            repository-id: jena
-            named-graph: urn:x-arq:DefaultGraph
+            repository-id: virtuoso
+            named-graph: http://mu.semte.ch/application
             batch-size: 1
+
     - name: taxonomies
       description: "This pipeline will fetch the product types and tree taxonomies."
       input:
         name: Ldio:HttpInPoller
         config:
           url:
-            - https://app-westtoerwin-prod.azurewebsites.net/api/v1/taxonomies/product-types
             - https://app-westtoerwin-prod.azurewebsites.net/api/v1/taxonomies/tree
-            - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/toeristische-regios.jsonld
           cron: "*/60 * * * * *"
         adapter:
           name: Ldio:JsonToLdAdapter
@@ -120,12 +209,22 @@ orchestrator:
         - name: "Ldio:SparqlConstructTransformer"
           config:
             query: "
-              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-              CONSTRUCT {
-                ?s ?p ?o .
-                ?s a skos:Concept .
-              } WHERE {
-                ?s ?p ?o .
+              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>  
+              PREFIX mu: <http://mu.semte.ch/vocabularies/core/>  
+              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
+ 
+              CONSTRUCT {  
+                graph ?object {
+                  ?object a skos:Concept .  
+                  ?object mu:uuid ?uuid .  
+                  ?object ?p ?o .  
+                }
+              }  
+              WHERE {  
+                ?object ?p ?o .  
+                FILTER NOT EXISTS { ?object mu:uuid ?existingUuid }  
+                BIND(CONCAT('uuid-', SHA256(STR(?object))) AS ?uuid)  
+ 
               }
             "
       outputs:
@@ -133,6 +232,164 @@ orchestrator:
         - name: Ldio:RepositorySink
           config:
             sparql-host: http://rdf4j-server:8080/rdf4j-server
-            repository-id: jena
-            named-graph: urn:x-arq:DefaultGraph
+            repository-id: virtuoso
+            named-graph: http://mu.semte.ch/application
             batch-timeout: 10000
+            batch-size: 10
+
+    - name: producttypes
+      description: "This pipeline will fetch the product types."
+      input:
+        name: Ldio:HttpInPoller
+        config:
+          url:
+            - https://app-westtoerwin-prod.azurewebsites.net/api/v1/taxonomies/product-types
+          cron: "*/60 * * * * *"
+        adapter:
+          name: Ldio:JsonToLdAdapter
+          config:
+            context: |
+              {
+                "@context": {
+                  "@base": "https://data.westtoer.be/id/concept/producttype/",
+                  "id": "@id",
+                  "skos": "http://www.w3.org/2004/02/skos/core#",
+                  "labels": "skos:prefLabel",
+                  "taal": "@language",
+                  "children": "skos:narrower"
+                }
+              }
+      transformers:
+        - name: "Ldio:SparqlConstructTransformer"
+          config:
+            query: "
+              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>  
+              PREFIX mu: <http://mu.semte.ch/vocabularies/core/>  
+              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
+ 
+              CONSTRUCT {  
+                graph ?object {
+                  ?object a skos:Concept .  
+                  ?object mu:uuid ?uuid .  
+                  ?object ?p ?o .  
+                }
+              }  
+              WHERE {  
+                ?object ?p ?o .  
+                FILTER NOT EXISTS { ?object mu:uuid ?existingUuid }  
+                BIND(CONCAT('uuid-', SHA256(STR(?object))) AS ?uuid)  
+ 
+              }
+            "
+      outputs:
+        # - name: Ldio:ConsoleOut
+        - name: Ldio:RepositorySink
+          config:
+            sparql-host: http://rdf4j-server:8080/rdf4j-server
+            repository-id: virtuoso
+            named-graph: http://mu.semte.ch/application
+            batch-timeout: 10000
+            batch-size: 10
+
+    - name: municipalities
+      description: "This pipeline will fetch the municipalities."
+      input:
+        name: Ldio:HttpInPoller
+        config:
+          url:
+            - https://app-westtoerwin-prod.azurewebsites.net/api/v1/municipalities
+          cron: "*/60 * * * * *"
+        adapter:
+          name: Ldio:JsonToLdAdapter
+          config:
+            context: |
+              {
+                "@context": {
+                  "@base": "https://data.westtoer.be/id/concepts/",
+                  "id": "@id",
+                  "skos": "http://www.w3.org/2004/02/skos/core#",
+                  "locn": "http://www.w3.org/ns/locn#",
+                  "label": {
+                      "@id": "skos:prefLabel",
+                      "@language": "nl"
+                  },
+                  "subMunicipalities": "skos:narrower",
+                  "postalCode": {
+                      "@id": "locn:postCode"
+                  }
+                }
+              }
+      transformers:
+        - name: "Ldio:SparqlConstructTransformer"
+          config:
+            query: "
+              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>  
+              PREFIX mu: <http://mu.semte.ch/vocabularies/core/>  
+              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
+ 
+              CONSTRUCT {  
+                graph ?object {
+                  ?object a skos:Concept .  
+                  ?object mu:uuid ?uuid .  
+                  ?object ?p ?o .  
+                }
+              }  
+              WHERE {  
+                ?object ?p ?o .  
+                FILTER NOT EXISTS { ?object mu:uuid ?existingUuid }  
+                BIND(CONCAT('uuid-', SHA256(STR(?object))) AS ?uuid)  
+ 
+              }
+            "
+      outputs:
+        # - name: Ldio:ConsoleOut
+        - name: Ldio:RepositorySink
+          config:
+            sparql-host: http://rdf4j-server:8080/rdf4j-server
+            repository-id: virtuoso
+            named-graph: http://mu.semte.ch/application
+            batch-timeout: 10000
+            batch-size: 10
+
+    - name: touristregions
+      description: "This pipeline will fetch the tourist-regions."
+      input:
+        name: Ldio:HttpInPoller
+        config:
+          url:
+            - https://sirus-be.github.io/westtoer-win-ldes2triplestore/taxonomies/toeristische-regios.jsonld
+
+          cron: "*/60 * * * * *"
+        adapter:
+            name: Ldio:RdfAdapter
+      transformers:
+        - name: "Ldio:SparqlConstructTransformer"
+          config:
+            query: "
+              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>  
+              PREFIX mu: <http://mu.semte.ch/vocabularies/core/>  
+              PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
+ 
+              CONSTRUCT {  
+                graph ?object {
+                  ?object a skos:Concept .  
+                  ?object mu:uuid ?uuid .  
+                  ?object ?p ?o .  
+                }
+              }  
+              WHERE {  
+                ?object ?p ?o .  
+                FILTER NOT EXISTS { ?object mu:uuid ?existingUuid }  
+                BIND(CONCAT('uuid-', SHA256(STR(?object))) AS ?uuid)  
+ 
+              }
+            "
+      outputs:
+        # - name: Ldio:ConsoleOut
+        - name: Ldio:RepositorySink
+          config:
+            sparql-host: http://rdf4j-server:8080/rdf4j-server
+            repository-id: virtuoso
+            named-graph: http://mu.semte.ch/application
+            batch-timeout: 10000
+            batch-size: 10
