@@ -6,7 +6,7 @@ orchestrator:
         name: Ldio:LdesClient
         config:
           urls:
-            - https://ca-westtoer-ldes.bluesea-b3dcdb70.westeurope.azurecontainerapps.io/touristattractions
+            - https://ca-westtoerwin-nginx-prod.livelyisland-1fa58ea1.westeurope.azurecontainerapps.io/touristattractions
           sourceFormat: text/turtle
           keep-state: true
           state: sqlite
