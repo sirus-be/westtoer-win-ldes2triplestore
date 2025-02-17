@@ -225,6 +225,29 @@ WHERE {
        ?link schema:url ?linkUrl .
        BIND(str(?linkUrl) as ?linkUrlString)
     }
+
+    OPTIONAL {
+      ?product westtoerns:heeftKenmerk ?kenmerk .
+      ?kenmerk skos:prefLabel ?kenmerkLabel .
+      FILTER (lang(?kenmerkLabel) = 'nl')
+      BIND(replace(str(?kenmerk), 'https://data.westtoer.be/id/concept/producttype/', '') as ?kenmerkId)
+  
+      OPTIONAL {
+        ?100WVLKenmerk skos:prefLabel "Producten 100% West-Vlaams"@nl ;
+          skos:narrower ?kenmerk .
+      }
+  
+      BIND(if(bound(?100WVLKenmerk), true, false) as ?is100WVLKenmerk)
+    }
+    
+    OPTIONAL {
+      SELECT DISTINCT ?product (group_concat(?kenmerk;separator=', ') as ?kenmerken)
+      WHERE {
+        ?product westtoerns:heeftKenmerk/skos:prefLabel ?kenmerk
+        FILTER(lang(?kenmerk) = 'nl')
+      } 
+      GROUP BY ?product
+    }
         
     # Filter op WinId
     # FILTER (str(?winId) = "1000309")
