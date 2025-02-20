@@ -36,7 +36,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX datatourism: <https://www.datatourisme.fr/ontology/core#>
 
-SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?omschrijvingProductType ?rootTypeId ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId ?hoogteRuimte ?oppervlakteRuimte ?indelingCapaciteit ?indelingTypeId ?indelingTypeLabel
+SELECT DISTINCT ?winId ?wijzigingsdatum ?beschrijving ?naam ?typeId ?typeLabels ?omschrijvingProductType ?rootTypeId ?kenmerken ?statusId ?status ?faciliteiten ?afbeeldingURL ?huisnummer ?straatnaam ?gemeente ?provincie ?postcode ?niscode ?website ?email ?telefoonnummers ?lat ?long ?toeristischeregioWesttoerId ?toeristischeregioTVLId ?toeristischeregioLabel ?product ?wkt ?beoordelingsBeschrijving ?hoogsteBeoordeling ?laagsteBeoordeling ?beoordelingsId ?validFrom ?validThrough ?opens ?closes ?dayOfWeekString ?linkUrlString ?linkTypeId ?hoogteRuimte ?oppervlakteRuimte ?indelingCapaciteit ?indelingTypeId ?indelingTypeLabel
 WHERE {
     GRAPH <http://mu.semte.ch/application> {
       ?product a schema:TouristAttraction .
@@ -51,16 +51,20 @@ WHERE {
 
       OPTIONAL {
           ?product schema:amenityFeature [
-              schema:name ?faciliteit
-          ]
+              schema:name ?faciliteit ;
+              logies:isSpecialisatieVan ?faciliteitType
+          ] .
+          ?faciliteitType westtoerns:isDeleted "0"^^xsd:boolean .
       }
 
       OPTIONAL {
         SELECT DISTINCT ?product (group_concat(?faciliteit;separator=', ') as ?faciliteiten)
            WHERE {
              ?product schema:amenityFeature [
-                  schema:name ?faciliteit
-              ]
+                  schema:name ?faciliteit ;
+                  logies:isSpecialisatieVan ?faciliteitType
+              ] .
+         ?faciliteitType westtoerns:isDeleted "0"^^xsd:boolean .
          FILTER(lang(?faciliteit) = 'nl')
            } 
             GROUP BY ?product
@@ -189,12 +193,13 @@ WHERE {
         }
         OPTIONAL {
         	?ruimte datatourism:hasLayout ?indeling .
-          ?indeling westtoerns:indelingBeschikbaar true .
+          	?indeling westtoerns:indelingBeschikbaar true .
         	?indeling dcterms:type ?indelingTypeUri .
-          BIND(replace(str(?indelingTypeUri), 'https://data.westtoer.be/id/concepts/', '') as ?indelingTypeId)
-          ?indelingTypeUri skos:prefLabel ?indelingTypeLabel .
-          FILTER (lang(?indelingTypeLabel) = 'nl')
-			    ?indeling logies:capaciteit/schema:value ?indelingCapaciteit .            
+        	?indelingTypeUri westtoerns:isDeleted "0"^^xsd:boolean .
+            BIND(replace(str(?indelingTypeUri), 'https://data.westtoer.be/id/concepts/', '') as ?indelingTypeId)
+            ?indelingTypeUri skos:prefLabel ?indelingTypeLabel .
+            FILTER (lang(?indelingTypeLabel) = 'nl')
+        	?indeling logies:capaciteit/schema:value ?indelingCapaciteit .            
         }
      }
 
@@ -221,6 +226,7 @@ WHERE {
     OPTIONAL {
        ?product rdfs:seeAlso ?link .
        ?link schema:additionalType ?linkTypeUri .
+       ?linkTypeUri westtoerns:isDeleted "0"^^xsd:boolean .
        BIND(replace(str(?linkTypeUri), 'https://data.westtoer.be/id/concepts/', '') as ?linkTypeId)
        ?link schema:url ?linkUrl .
        BIND(str(?linkUrl) as ?linkUrlString)
@@ -229,8 +235,9 @@ WHERE {
     OPTIONAL {
       ?product westtoerns:heeftKenmerk ?kenmerk .
       ?kenmerk skos:prefLabel ?kenmerkLabel .
+      ?kenmerk westtoerns:isDeleted "0"^^xsd:boolean .
       FILTER (lang(?kenmerkLabel) = 'nl')
-      BIND(replace(str(?kenmerk), 'https://data.westtoer.be/id/concept/producttype/', '') as ?kenmerkId)
+      BIND(replace(str(?kenmerk), 'https://data.westtoer.be/id/concepts/', '') as ?kenmerkId)
   
       OPTIONAL {
         ?100WVLKenmerk skos:prefLabel "Producten 100% West-Vlaams"@nl ;
@@ -241,10 +248,12 @@ WHERE {
     }
     
     OPTIONAL {
-      SELECT DISTINCT ?product (group_concat(?kenmerk;separator=', ') as ?kenmerken)
+      SELECT DISTINCT ?product (group_concat(?kenmerkLabel;separator=', ') as ?kenmerken)
       WHERE {
-        ?product westtoerns:heeftKenmerk/skos:prefLabel ?kenmerk
-        FILTER(lang(?kenmerk) = 'nl')
+        ?product westtoerns:heeftKenmerk ?kenmerk .
+        ?kenmerk skos:prefLabel ?kenmerkLabel .
+        ?kenmerk westtoerns:isDeleted "0"^^xsd:boolean .
+        FILTER(lang(?kenmerkLabel) = 'nl')
       } 
       GROUP BY ?product
     }

@@ -37,6 +37,7 @@ orchestrator:
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
             PREFIX logies: <https://data.vlaanderen.be/ns/logies#>
             PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            PREFIX adms:  <http://www.w3.org/ns/adms#>
 
             CONSTRUCT {
               ?product ?p ?oNotBlank .
@@ -51,12 +52,8 @@ orchestrator:
               ?oNotBlank westtoer:identifier ?notationString .
               ?o2NotBlank schema:opens ?fixedOpens .
               ?o2NotBlank schema:closes ?fixedCloses .
-
-              ?concept a skos:Concept ;
-                      mu:uuid ?conceptUuid .  
             }
             WHERE {
-            {
               {
                 ?product a dcmitype:Collection .
               }
@@ -66,6 +63,26 @@ orchestrator:
               }
 
               ?product ?p ?o .
+
+              OPTIONAL {
+                ?o generiek:lokaleIdentificator ?uuidMediaRaw .
+                BIND(CONCAT('uuid-',STR(?uuidMediaRaw)) AS ?uuidMedia)
+              }
+
+              OPTIONAL {
+                ?o rdf:type logies:Faciliteit .
+                ?o logies:isSpecialisatieVan ?faciliteitUrl .
+                BIND(REPLACE(STR(?faciliteitUrl), 'https://data.westtoer.be/id/concepts/', '') AS ?faciliteitId)
+                BIND(CONCAT('uuid-',STR(?faciliteitId)) AS ?uuidFaciliteit)
+              }
+
+              OPTIONAL {
+                ?o rdf:type adms:Identifier .
+                ?o skos:notation       ?wincode .
+                BIND(CONCAT('uuid-',STR(?wincode)) AS ?uuidIdentifier)
+              }
+
+
 
               OPTIONAL {
                 ?o rdf:type ?typeO .
@@ -81,7 +98,7 @@ orchestrator:
                 BIND(rdfs:Resource AS ?typeSeeAlso)
                 }
 
-              BIND(COALESCE(?uuidGenerated, ?uuidGeneratedSeeAlso) AS ?finalUuid)
+              BIND(COALESCE(?uuidMedia, ?uuidFaciliteit, ?uuidIdentifier, ?uuidGenerated, ?uuidGeneratedSeeAlso) AS ?finalUuid)
               BIND(COALESCE(?typeO, ?typeSeeAlso) AS ?finalType)
 
               OPTIONAL {
@@ -140,18 +157,30 @@ orchestrator:
               BIND(IF(ISBLANK(?o5) && !ISLITERAL(?o5), URI(CONCAT(?skolemBase, MD5(CONCAT(STR(?product), STR(?o5))))), ?o5) AS ?o5NotBlank)
 
             }
-            UNION
-            {
-              ?concept skos:prefLabel ?prefLabel .
-              FILTER (!isBlank(?concept))
-              FILTER NOT EXISTS {
-                  ?concept rdf:type logies:ToeristischeRegio .
+            "
+        - name: "Ldio:SparqlConstructTransformer"
+          config:
+            query: "
+            PREFIX logies: <https://data.vlaanderen.be/ns/logies#>
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+            CONSTRUCT {
+              GRAPH ?s {
+                ?s ?p ?o .
               }
-              BIND(CONCAT('uuid-', SHA256(STR(?concept))) AS ?conceptUuid)
-
             }
-          }
-
+            WHERE {
+              ?s ?p ?o .
+              FILTER NOT EXISTS {
+                ?s a skos:Concept .
+              }
+              FILTER NOT EXISTS {
+                ?s skos:prefLabel ?o .
+              }
+              FILTER NOT EXISTS {
+                ?s a logies:ToeristischeRegio .
+              }               
+            }
             "
       outputs:
         # - name: Ldio:ConsoleOut
@@ -202,6 +231,10 @@ orchestrator:
                   "labelGerman": {
                       "@id": "label",
                       "@language": "de"
+                  },
+                  "isDeleted": {
+                      "@id": "https://data.westtoer.be/ns#isDeleted",
+                      "@type": "http://www.w3.org/2001/XMLSchema#boolean"
                   }
                 }
               }
@@ -349,7 +382,7 @@ orchestrator:
             repository-id: virtuoso
             named-graph: http://mu.semte.ch/application
             batch-timeout: 10000
-            batch-size: 10
+            batch-size: 1
 
     - name: touristregions
       description: "This pipeline will fetch the tourist-regions."
